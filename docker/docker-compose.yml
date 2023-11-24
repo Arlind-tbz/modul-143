@@ -1,0 +1,125 @@
+version: "3"
+
+services:
+
+  traefik:
+    image: traefik:latest
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      proxy:
+        ipv4_address: 172.16.0.2
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CF_API_EMAIL=yourcloudflare@email.com
+      - CF_DNS_API_TOKEN=YOURTOKEN
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data-proxy/traefik.yml:/traefik.yml:ro
+      - ./data-proxy/acme.json:/acme.json
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.tbz.domain.tld`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=arlind:$$apr1$$J9aFUVEo$$ClVOvCnSmf.tisyo8Lj1W/"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.tbz.domain.tld`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=tbz.domain.tld"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.tbz.domain.tld"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+  owncloud:
+    image: owncloud/server:${OWNCLOUD_VERSION}
+    container_name: owncloud_server
+    networks:
+      proxy:
+        ipv4_address: 172.16.0.3
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.owncloud.entrypoints=http
+      - traefik.http.routers.owncloud.rule=Host(`owncloud.tbz.domain.tld`)
+      - traefik.http.middlewares.owncloud-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.owncloud.middlewares=owncloud-https-redirect
+      - traefik.http.routers.owncloud-secure.entrypoints=https
+      - traefik.http.routers.owncloud-secure.rule=Host(`owncloud.tbz.domain.tld`)
+      - traefik.http.routers.owncloud-secure.tls=true
+      - traefik.http.routers.owncloud-secure.service=owncloud
+      - traefik.http.services.owncloud.loadbalancer.server.port=8080
+      - traefik.docker.network=proxy
+    depends_on:
+      - mariadb
+      - redis
+    environment:
+      - OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN}
+      - OWNCLOUD_TRUSTED_DOMAINS=${OWNCLOUD_TRUSTED_DOMAINS}
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=mariadb
+      - OWNCLOUD_ADMIN_USERNAME=${ADMIN_USERNAME}
+      - OWNCLOUD_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - OWNCLOUD_MYSQL_UTF8MB4=true
+      - OWNCLOUD_REDIS_ENABLED=true
+      - OWNCLOUD_REDIS_HOST=redis
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - ./data-owncloud:/mnt/data
+
+  mariadb:
+    image: mariadb:10.11
+    container_name: owncloud_mariadb
+    networks:
+      proxy:
+        ipv4_address: 172.16.0.4
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=owncloud
+      - MYSQL_USER=owncloud
+      - MYSQL_PASSWORD=owncloud
+      - MYSQL_DATABASE=owncloud
+      - MARIADB_AUTO_UPGRADE=1
+    command: ["--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=owncloud"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  redis:
+    image: redis:6
+    container_name: owncloud_redis
+    networks:
+      proxy:
+        ipv4_address: 172.16.0.5
+    restart: always
+    command: ["--databases", "1"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./redis:/data
+
+networks:
+  proxy:
+    external: true
