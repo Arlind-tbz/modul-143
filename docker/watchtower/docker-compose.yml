@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    networks:
+      proxy:
+        ipv4_address: 172.16.0.6
+    environment:
+      - TZ=Europe/Zurich
+      - WATCHTOWER_INCLUDE_STOPPED=true
+      - WATCHTOWER_REVIVE_STOPPED=false
+      - WATCHTOWER_RUN_ONCE=false
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 20 * * 5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: on-failure
+
+networks:
+  proxy:
+    external: true
