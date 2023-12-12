@@ -21,6 +21,7 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
     - [Szenario 6: Dokumentation](#szenario-6-dokumentation)
     - [Szenario 7: Kostenoptimierung](#szenario-7-kostenoptimierung)
   - [Datenschutzgesetz](#datenschutzgesetz)
+  - [Technische Anforderungen](#technische-anforderungen)
   - [Datensicherungskonzept](#datensicherungskonzept)
   - [Speicherkapazität](#speicherkapazität)
 - [Hauptteil - Aufsetzen der Umgebung](#hauptteil---aufsetzen-der-umgebung)
@@ -31,7 +32,10 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
       - [Share und Sync Server](#share-und-sync-server)
       - [Mail Server](#mail-server)
       - [Update Server](#update-server)
-    - [Umsetzen](#umsetzen)
+      - [Domain](#domain)
+  - [Umsetzen](#umsetzen)
+  - [Testen](#testen)
+- [Reflektion](#reflektion)
 
 
 # Einleitung - Datensicherheitskonzept
@@ -79,15 +83,19 @@ Wir möchten eine robuste Lösung zur Datensicherung implementieren, um die Sich
 
 ## Datenschutzgesetz
 
-asdf
+Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
+
+## Technische Anforderungen
+
+Konkrete und messbare technische Anforderungen sind konzeptionell definiert (Partitionierung / Filesystem)
 
 ## Datensicherungskonzept
 
-asdf
+Im Datensicherungskonzept ist für jeden Service definiert, in welcher Form (Speicherort, Datenmenge, Datenformat) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
 
 ## Speicherkapazität
 
-asdf
+Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
 
 # Hauptteil - Aufsetzen der Umgebung
 
@@ -169,4 +177,14 @@ networks:
     external: true
 ```
 
-### Umsetzen
+#### Domain
+
+Ich habe schon die Domain `sulejmani.xyz` auf Cloudflare und werden dies für die Laborumgebung brauchen. bzw. die Sub-Domain `tbz.sulejmani.xyz`
+
+## Umsetzen
+
+
+
+## Testen
+
+# Reflektion

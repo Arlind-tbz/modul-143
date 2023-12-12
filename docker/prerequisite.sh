@@ -1,10 +1,10 @@
 #!/bin/bash
 
-mkdir data-owncloud data-proxy mysql redis
+mkdir -p owncloud/data-owncloud traefik/data-proxy owncloud/mysql owncloud/redis
 
 docker network create --driver bridge --gateway 172.16.0.1 --ip-range 172.16.0.0/24 --subnet 172.16.0.0/16 proxy
 
-cat > ./data-proxy/traefik.yml <<EOF
+cat > ./traefik/data-proxy/traefik.yml <<EOF
 api:
   dashboard: true
   debug: true
@@ -38,12 +38,12 @@ certificatesResolvers:
           - "1.0.0.1:53"
 EOF
 
-touch ./data-proxy/config.yml
+touch ./traefik/data-proxy/config.yml
 
 sudo chown -R 1000:1000 ./
 
 chmod -R 755 ./
 
-touch ./data-proxy/acme.json
+touch ./traefik/data-proxy/acme.json
 
-chmod 600 ./data-proxy/acme.json
+chmod 600 ./traefik/data-proxy/acme.json
