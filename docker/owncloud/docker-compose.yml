@@ -4,10 +4,10 @@ services:
 
   owncloud:
     image: owncloud/server:${OWNCLOUD_VERSION}
-    container_name: owncloud_server
+    container_name: owncloud-server
     networks:
       proxy:
-        ipv4_address: 172.16.0.3
+        ipv4_address: 172.16.3.1
     restart: always
     labels:
       - traefik.enable=true
@@ -43,14 +43,14 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - ./data-owncloud:/mnt/data
+      - ./data:/mnt/data
 
   mariadb:
-    image: mariadb:10.11
-    container_name: owncloud_mariadb
+    image: mariadb:10.11 # minimum required ownCloud version is 10.9
+    container_name: owncloud-mariadb
     networks:
       proxy:
-        ipv4_address: 172.16.0.4
+        ipv4_address: 172.16.3.2
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=owncloud
@@ -69,10 +69,10 @@ services:
 
   redis:
     image: redis:6
-    container_name: owncloud_redis
+    container_name: owncloud-redis
     networks:
       proxy:
-        ipv4_address: 172.16.0.5
+        ipv4_address: 172.16.3.3
     restart: always
     command: ["--databases", "1"]
     healthcheck:
