@@ -15,8 +15,8 @@ services:
       - 80:80
       - 443:443
     environment:
-      - CF_API_EMAIL=sulejmaniarlind5@gmail.com
-      - CF_DNS_API_TOKEN=REDACTED_CF_DNS_API_TOKEN
+      - CF_API_EMAILyouremail@email.com
+      - CF_DNS_API_TOKEN=yourcloudflareapitoken
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
