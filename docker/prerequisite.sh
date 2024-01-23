@@ -4,7 +4,7 @@ mkdir -p owncloud/data traefik/data owncloud/mysql owncloud/redis
 
 docker network create --driver bridge --gateway 172.16.0.1 --ip-range 172.16.0.0/24 --subnet 172.16.0.0/16 proxy
 
-cat > ./traefik/data/traefik.yml <<EOF
+cat > /home/arlind/docker/traefik/data/traefik.yml <<EOF
 api:
   dashboard: true
   debug: true
@@ -38,12 +38,12 @@ certificatesResolvers:
           - "1.0.0.1:53"
 EOF
 
-touch ./traefik/data/config.yml
+touch /home/arlind/docker/traefik/data/config.yml
 
 sudo chown -R 1000:1000 ./
 
 chmod -R 755 ./
 
-touch ./traefik/data/acme.json
+touch /home/arlind/docker/traefik/data/acme.json
 
-chmod 600 ./traefik/data/acme.json
+chmod 600 /home/arlind/docker/traefik/data/acme.json
