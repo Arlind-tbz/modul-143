@@ -14,11 +14,11 @@ mkdir -p "$log_dir"
 exec > >(tee -a "$log_file1") 2>&1
 
 # Set your source directory
-source_dir="./"
+source_dir="/home/arlind/docker/"
 
 # Set your local backup destinations (2 different types of media)
-local_backup_dir1="../backup-hdd"  # e.g., HDD
-local_backup_dir2="../backup-tape"  # e.g., Tape
+local_backup_dir1="/home/arlind/backup-hdd"  # e.g., HDD
+local_backup_dir2="/home/arlind/backup-tape"  # e.g., Tape
 
 # Perform the first local backup using rsync and log the output
 rsync -avh --delete "$source_dir" "$local_backup_dir1"
@@ -39,6 +39,3 @@ exec > >(tee -a "$log_file_remote") 2>&1
 
 # Perform the remote backup using rsync over SSH (adjust SSH key authentication as needed) and log the output
 rsync -avh --delete -e "ssh -i /home/arlind/.ssh/ssh-key" "$source_dir" "$remote_user@$remote_host:$remote_backup_dir"
-
-# You can add more options like compression, encryption, etc., as needed.
-
