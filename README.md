@@ -170,3 +170,7 @@ Ich habe schon die Domain `sulejmani.xyz` auf Cloudflare und werden dies für di
 
 
 # Reflektion
+
+## Speicherkapazität
+
+Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)

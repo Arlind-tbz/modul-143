@@ -6,19 +6,18 @@ Diese Betriebsdokumentation bietet einen umfassenden Überblick über unsere Bac
 
 - [Betriebsdokumentation](#betriebsdokumentation)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
-  - [Datenschutzgesetz](#datenschutzgesetz)
-  - [Technische Anforderungen](#technische-anforderungen)
   - [Datensicherungskonzept](#datensicherungskonzept)
-  - [Speicherkapazität](#speicherkapazität)
   - [Backup](#backup)
   - [Restore](#restore)
   - [Watchtower](#watchtower)
   - [OwnCloud](#owncloud)
+    - [Benutzer verwalten](#benutzer-verwalten)
+      - [Benutzer erstellen](#benutzer-erstellen)
+      - [Benutzer bearbeiten (Passwort-Wiederherstellung)](#benutzer-bearbeiten-passwort-wiederherstellung)
   - [Mail](#mail)
-
-## Datenschutzgesetz
-
-Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
+    - [Benutzer verwalten](#benutzer-verwalten-1)
+      - [Benutzer erstellen](#benutzer-erstellen-1)
+    - [Benutzer bearbeiten (Passwort-Wiederherstellung)](#benutzer-bearbeiten-passwort-wiederherstellung-1)
 
 ## Datensicherungskonzept
 
@@ -29,10 +28,6 @@ In unserem Datensicherungskonzept nutzen wir vier Docker-Stacks, wobei einer dav
 Mit Hilfe von Watchtower führen wir jeden Freitagabend Updates an unseren Containern durch.
 
 Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Protokolle sind im Verzeichnis `/var/log/tbz` zu finden.
-
-## Speicherkapazität
-
-Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
 
 ## Backup
 
@@ -206,23 +201,64 @@ Wie Sie sehen können, kann der Zeitplan jederzeit angepasst werden. Es wird jed
 
 ## OwnCloud
 
+### Benutzer verwalten
 
+Um Benutzer in OwnCloud zu verwalten, müssen Sie sich zunächst im Administrationsportal unter `owncloud.tbz.sulejmani.xyz` anmelden.
+
+- **Benutzer:** admin@tbz.sulejmani.xyz
+- **Passwort:** X4eebe4pxyVS&kP+zjxg
+- **TOTP:** BFHDISN333N6OMVN
+
+Der Administrationsnutzer ist durch 2FA gesichert. Nachdem Sie Benutzername und Passwort eingegeben haben, müssen Sie sich mit dem 2FA-Code anmelden.
+
+![OwnCloud-Anmeldung](./src/OwnCloud-Login.png)
+![OwnCloud-TOTP](./src/Owncloud-TOTP.png)
+
+Nach der Anmeldung können Sie oben rechts auf Ihren Benutzernamen klicken und zu "Benutzer" navigieren.
+
+![OwnCloud-Navigationsregister Benutzer](./src/OwnCloud-Navigation-Users.png)
+
+Dort angekommen, können Sie neue Benutzer erstellen oder vorhandene bearbeiten.
+
+![OwnCloud-Benutzerregister](./src/OwnCloud-Users-tab.png)
+
+#### Benutzer erstellen
+
+Um einen neuen Benutzer zu erstellen, klicken Sie auf die Schaltfläche "Benutzer hinzufügen" in der Mitte des Fensters.
+
+![OwnCloud-Benutzer erstellen](./src/OwnCloud-create-user.png)
+
+Hier können Sie den Benutzernamen, die E-Mail-Adresse und die Gruppe definieren. Die Gruppe sollte immer "Benutzer" sein, da wir nur einen zentralen Administratorbenutzer in der Gruppe "Administratoren" haben sollten.
+
+#### Benutzer bearbeiten (Passwort-Wiederherstellung)
+
+Um einen Benutzer zu bearbeiten, folgen Sie dem gleichen Weg, um zu den Benutzereinstellungen zu gelangen.
+
+![OwnCloud-Benutzer bearbeiten](./src/OwnCloud-Edit-users.png)
+
+Dort können Sie verschiedene Einstellungen ändern, wie z.B. Benutzername, Passwort, Gruppe, Aktivierung, Quota, usw.
 
 ## Mail
 
-### Benutzer erstellen
+### Benutzer verwalten
 
 Um Benutzer in Mailu zu erstellen, melden Sie sich zunächst im administrationsportal unter `mail.tbz.sulejmani.xyz` an.
+
+**Benutzer:** admin@tbz.sulejmani.xyz
+**Passwort:** X4eebe4pxyVS&kP+zjxg
+**TOTP:** BFHDISN333N6OMVN
 
 ![mailu-login](./src/Mailu-Login.png)
 
 Es ist wichtig, dass Sie sich im Administrationsportal anmelden und nicht im Webmail.
 
-Navigieren Sie anschließend zur Benutzerliste.
+Navigieren Sie anschliessend zur Benutzerliste.
 
 ![Mail-nav-zu-user](./src/Mailu-Navigation-zu-Users.png)
 
 Klicken Sie zuerst auf "Mail domains" und dann auf das Briefsymbol neben der Domain `tbz.sulejmani.xyz`.
+
+#### Benutzer erstellen
 
 ![Mailu-Add-user](./src/Mailu-Add-user.png)
 
@@ -232,19 +268,7 @@ Nachdem Sie sich in der Benutzerliste befinden, können Sie weitere Benutzer hin
 
 Hier können Sie Ihre Benutzer erstellen.
 
-### Benutzer bearbeiten (Passwortwiederherstellung)
-
-Um Benutzerinformationen zu bearbeiten, einschließlich der Passwortwiederherstellung, melden Sie sich im Administrationsportal unter `mail.tbz.sulejmani.xyz` an.
-
-![mailu-login](./src/Mailu-Login.png)
-
-Es ist wichtig, dass Sie sich im Administrationsportal anmelden und nicht im Webmail.
-
-Navigieren Sie dann zur Benutzerliste.
-
-![Mail-nav-zu-user](./src/Mailu-Navigation-zu-Users.png)
-
-Klicken Sie zuerst auf "Mail domains" und dann auf das Briefsymbol neben der Domain `tbz.sulejmani.xyz`.
+### Benutzer bearbeiten (Passwort-Wiederherstellung)
 
 ![Mailu-edit-user](./src/Mailu-edit-user.png)
 
