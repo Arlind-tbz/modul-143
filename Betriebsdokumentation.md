@@ -1,6 +1,6 @@
 # Betriebsdokumentation
 
-Dies ist eine Betriebsdokumentation zu unserer Backup-docker Umgebung. In dieser Dokumentation werden alle wichtige dinge gezeigt, die für einen Systemadministrator wichtig sind.
+Diese Betriebsdokumentation bietet einen umfassenden Überblick über unsere Backup-Docker-Umgebung und enthält alle wichtigen Informationen, die für Systemadministratoren relevant sind.
 
 ## Inhaltsverzeichnis
 
@@ -12,18 +12,33 @@ Dies ist eine Betriebsdokumentation zu unserer Backup-docker Umgebung. In dieser
   - [OwnCloud](#owncloud)
   - [Mail](#mail)
 
+## Datenschutzgesetz
+
+Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
+
+## Technische Anforderungen
+
+Konkrete und messbare technische Anforderungen sind konzeptionell definiert (Partitionierung / Filesystem)
+
+## Datensicherungskonzept
+
+Im Datensicherungskonzept ist für jeden Service definiert, in welcher Form (Speicherort, Datenmenge, Datenformat) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
+
+## Speicherkapazität
+
+Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
 
 ## Backup
 
-Jeden Freitag um 17:00 werden Backups erstellt, mithilfe von einem Cronjob.
+Jeden Freitag um 17:00 Uhr werden Backups gemäß einem Cronjob erstellt.
 
-Der Cronjob sieht aus wie folgt:
+Der Cronjob ist wie folgt konfiguriert:
 
 ```bash
 0 17 * * 5 /bin/bash /home/arlind/docker/backup.sh
 ```
 
-Es wird dieser Script ausgeführt:
+Die Ausführung erfolgt über das folgende Skript:
 
 ```bash
 #!/bin/bash
@@ -52,13 +67,13 @@ remote_backup_dir="/home/arlind/backup-remote"
 
 rsync -avh --delete -e "ssh -i /home/arlind/.ssh/ssh-key" "$source_dir" "$remote_user@$remote_host:$remote_backup_dir"
 ```
-Dieser Script nimmt alles im Verzeichnis `/home/arlind/docker` und macht eine identische Kopie inklusive berechtigungen und fügt sie in 2 verschiedene Speichermedien und eine Kopie auf der Cloud. In unserem Fall wäre das eine Kopie auf einer HDD, eine Kopie auf einer Tapespeicher und eine Kopie auf der Cloud, vie SSH, damit wir die Daten sicher übertragen.
+Dieses Skript erstellt eine identische Kopie aller Dateien im Verzeichnis `/home/arlind/docker` und überträgt sie auf zwei verschiedene Speichermedien sowie in die Cloud über SSH, um eine sichere Datenübertragung zu gewährleisten.
 
-Die Daten werden nicht verschlüsselt gespeichert, dass müssen sie aber nicht, weil owncloud und mailu Daten verschlüsselt speichern.
+Die Daten werden unverschlüsselt gespeichert, da ownCloud und Mailu die Daten verschlüsselt speichern.
 
-Falls ein Backup persofort erstellt werden muss, dann kann man sich direkt mit dem Server per SSH verbinden und im Verzeichnis `/home/arlind/docker` die Datei `backup.sh` ausführen.
+Wenn ein Backup sofort erstellt werden muss, kann man sich direkt über SSH mit dem Server verbinden und das Skript `backup.sh` im Verzeichnis `/home/arlind/docker` ausführen.
 
-Dies kann man mit diesem Befehl machen.
+Dies kann mit dem folgenden Befehl erreicht werden:
 
 ```bash
 sudo bash /home/arlind/docker/backup.sh
@@ -66,12 +81,11 @@ sudo bash /home/arlind/docker/backup.sh
 
 ## Restore
 
-Der Restorescript ist sehr simpel, es sind verschiedene `mv` Befehle und eine `scp -r` Befehl.
-Doch bevor alles restored wird werden verschiedene sachen gemacht. Zuerst wird ein ./stop.sh ausgeführt, diese Bashscript wird alle relavanten Docker Container herunterfahren.
+Das Wiederherstellungsskript ist recht einfach und besteht aus verschiedenen mv-Befehlen sowie einem scp -r-Befehl. Bevor jedoch alles wiederhergestellt wird, werden verschiedene Schritte ausgeführt. Zunächst wird ein Skript namens stop.sh ausgeführt, das alle relevanten Docker-Container herunterfährt.
 
-Nachdem die Container heruntergefahren werden, wird der komplette Ordner gewiped. Dies ist, damit es keine Probleme hat beim restoren.
+Nachdem die Container heruntergefahren wurden, wird das gesamte Verzeichnis bereinigt, um Probleme während der Wiederherstellung zu vermeiden.
 
-Danach wählt man die Restore methode und es wird ausgeführt, nach dem alles restored wurde, wird start.sh ausgeführt, dass alle Docker container wieder startet.
+Anschließend wählt der Benutzer die Wiederherstellungsmethode aus, und der entsprechende Vorgang wird durchgeführt. Nach Abschluss der Wiederherstellung wird das Skript start.sh ausgeführt, um alle Docker-Container wieder zu starten.
 
 ```bash
 #!/bin/bash
@@ -134,14 +148,14 @@ esac
 bash /home/arlind/docker/start.sh
 ```
 
-Wie immer muss man sich zuerst mit SSH auf dem Server verbinden. Im Verzeichnis `/home/arlind/docker` gibt es eine Datei namens `restore.sh` diese kann man ohne andere Arguments ausführen. Sobald man den Script ausführt mit diesem Befehl:
+Um das Skript auszuführen, muss man sich wie gewohnt über SSH auf dem Server anmelden. In dem Verzeichnis /home/arlind/docker befindet sich eine Datei namens restore.sh, die ohne weitere Argumente ausgeführt werden kann. Nach dem Ausführen des Skripts mit dem Befehl:
 
 ```bash
 sudo bash /home/arlind/docker/restore.sh
 ```
-Wird ein Fenster auftauchen, dass sie auswählen lässt, von wo es einen restore ausführt. 1. wäre HDD 2. wäre Tape und 3. wäre Remote.
+wird ein Menü angezeigt, das es ermöglicht, die Wiederherstellungsmethode auszuwählen: 1. für HDD, 2. für Tape und 3. für Remote.
 
-Hier wäre ein Beispiel:
+Hier ist ein Beispiel:
 
 ```bash
 sudo ./restore.sh
@@ -151,9 +165,38 @@ Choose the backup destination:
 3. Remote
 Enter your choice (1/2/3): 1
 ```
-Sobald die Auswahl getroffen wurde und Enter gedrückt wird, sieht man alle Logs während es den Restore ausführt.
+Nachdem die Auswahl getroffen wurde und Enter gedrückt wurde, werden alle Protokolle während der Wiederherstellung angezeigt.
 
 ## Watchtower
+
+Unser Watchtower-Container aktualisiert alle unsere Docker-Container jeden Freitag um 20:00 Uhr. Hier ist die Docker-Compose-Datei, die die Konfiguration für den Watchtower definiert:
+
+```yml
+version: "3.8"
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: watchtower
+    networks:
+      proxy:
+        ipv4_address: 172.16.1.1
+    environment:
+      - TZ=Europe/Zurich
+      - WATCHTOWER_INCLUDE_STOPPED=true
+      - WATCHTOWER_REVIVE_STOPPED=false
+      - WATCHTOWER_RUN_ONCE=false
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_SCHEDULE=0 0 20 * * 5
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: on-failure
+
+networks:
+  proxy:
+    external: true
+```
+
+Wie Sie sehen können, kann der Zeitplan jederzeit angepasst werden. Es wird jedoch nicht empfohlen, den Zeitplan zu ändern, da wir Updates nicht sofort ausführen möchten, um potenzielle Probleme zu vermeiden.
 
 ## OwnCloud
 

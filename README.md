@@ -20,10 +20,6 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
     - [Szenario 5: Mail-Server](#szenario-5-mail-server)
     - [Szenario 6: Dokumentation](#szenario-6-dokumentation)
     - [Szenario 7: Kostenoptimierung](#szenario-7-kostenoptimierung)
-  - [Datenschutzgesetz](#datenschutzgesetz)
-  - [Technische Anforderungen](#technische-anforderungen)
-  - [Datensicherungskonzept](#datensicherungskonzept)
-  - [Speicherkapazität](#speicherkapazität)
 - [Hauptteil - Aufsetzen der Umgebung](#hauptteil---aufsetzen-der-umgebung)
   - [Vorbereitung](#vorbereitung)
     - [Welche Services werden wir benötigen?](#welche-services-werden-wir-benötigen)
@@ -38,7 +34,7 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
 - [Reflektion](#reflektion)
 
 
-# Einleitung - Datensicherheitskonzept
+# Einleitung
 
 ## Fiktive User-Story
 
@@ -57,13 +53,13 @@ Wir möchten eine robuste Lösung zur Datensicherung implementieren, um die Sich
 ### Szenario 2: Mehrere Backup-Standorte
 
 - Wir streben an, unsere Backups sicher gemäss den Prinzipien des 3-2-1-Backups zu speichern:
-  - 3 Kopien lokal
+  - 3 Kopien
   - 2 auf verschiedenen Medien
   - 1 in der Cloud
 
 ### Szenario 3: Verschlüsselung
 
-- Wir legen Wert darauf, dass unsere Backups, E-Mails und Daten sicher verschlüsselt werden. Zudem sollte unsere gesamte Umgebung vollständig über HTTPS gesichert sein.
+- Wir legen Wert darauf, E-Mails und Daten sicher verschlüsselt werden. Zudem sollte unsere gesamte Umgebung vollständig über HTTPS gesichert sein.
 
 ### Szenario 4: Regelmässige Updates
 
@@ -71,7 +67,7 @@ Wir möchten eine robuste Lösung zur Datensicherung implementieren, um die Sich
 
 ### Szenario 5: Mail-Server
 
-- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschliesslich für die interne Kommunikation. Darüber hinaus möchten wir einen zentralen Account einrichten, über den wir Updates und Backup-Benachrichtigungen erhalten oder auf andere Weise informiert werden.
+- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschliesslich für die interne Kommunikation.
 
 ### Szenario 6: Dokumentation
 
@@ -80,22 +76,6 @@ Wir möchten eine robuste Lösung zur Datensicherung implementieren, um die Sich
 ### Szenario 7: Kostenoptimierung
 
 - Unsere Präferenz liegt auf kosteneffizienten Lösungen. Das schliesst die Verwendung von Zertifikaten von Let's Encrypt, zertifikatslosen Programmen und stromsparenden Anwendungen mit ein.
-
-## Datenschutzgesetz
-
-Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
-
-## Technische Anforderungen
-
-Konkrete und messbare technische Anforderungen sind konzeptionell definiert (Partitionierung / Filesystem)
-
-## Datensicherungskonzept
-
-Im Datensicherungskonzept ist für jeden Service definiert, in welcher Form (Speicherort, Datenmenge, Datenformat) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
-
-## Speicherkapazität
-
-Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
 
 # Hauptteil - Aufsetzen der Umgebung
 
@@ -186,5 +166,7 @@ Ich habe schon die Domain `sulejmani.xyz` auf Cloudflare und werden dies für di
 
 
 ## Testen
+
+
 
 # Reflektion
