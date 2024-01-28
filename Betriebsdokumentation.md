@@ -6,6 +6,10 @@ Diese Betriebsdokumentation bietet einen umfassenden Überblick über unsere Bac
 
 - [Betriebsdokumentation](#betriebsdokumentation)
   - [Inhaltsverzeichnis](#inhaltsverzeichnis)
+  - [Datenschutzgesetz](#datenschutzgesetz)
+  - [Technische Anforderungen](#technische-anforderungen)
+  - [Datensicherungskonzept](#datensicherungskonzept)
+  - [Speicherkapazität](#speicherkapazität)
   - [Backup](#backup)
   - [Restore](#restore)
   - [Watchtower](#watchtower)
@@ -16,13 +20,15 @@ Diese Betriebsdokumentation bietet einen umfassenden Überblick über unsere Bac
 
 Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
 
-## Technische Anforderungen
-
-Konkrete und messbare technische Anforderungen sind konzeptionell definiert (Partitionierung / Filesystem)
-
 ## Datensicherungskonzept
 
-Im Datensicherungskonzept ist für jeden Service definiert, in welcher Form (Speicherort, Datenmenge, Datenformat) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
+![Datensicherungskonzept](/src/Datensicherungskonzept.drawio.png)
+
+In unserem Datensicherungskonzept nutzen wir vier Docker-Stacks, wobei einer davon ein Proxy ist. Durch unseren Proxy ist der einzige offene Port Port 80 und 443, wobei Port 80 ausschliesslich für die Weiterleitung zum Port 443 verwendet wird. Auf diese Weise stellen wir sicher, dass alle Kommunikation verschlüsselt ist. Dies bietet einen erheblichen Vorteil, da unsere Mailserver nur intern kommunizieren. Somit ist es praktisch unmöglich, dass wir über Mailangriffe gefährdet werden, da unsere externe Kommunikation praktisch nicht existiert. Auf diese Weise gewährleisten wir, dass unsere Kommunikation sicher ist.
+
+Mit Hilfe von Watchtower führen wir jeden Freitagabend Updates an unseren Containern durch.
+
+Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Protokolle sind im Verzeichnis `/var/log/tbz` zu finden.
 
 ## Speicherkapazität
 
@@ -30,7 +36,7 @@ Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten W
 
 ## Backup
 
-Jeden Freitag um 17:00 Uhr werden Backups gemäß einem Cronjob erstellt.
+Jeden Freitag um 17:00 Uhr werden Backups gemäss einem Cronjob erstellt.
 
 Der Cronjob ist wie folgt konfiguriert:
 
@@ -85,7 +91,7 @@ Das Wiederherstellungsskript ist recht einfach und besteht aus verschiedenen mv-
 
 Nachdem die Container heruntergefahren wurden, wird das gesamte Verzeichnis bereinigt, um Probleme während der Wiederherstellung zu vermeiden.
 
-Anschließend wählt der Benutzer die Wiederherstellungsmethode aus, und der entsprechende Vorgang wird durchgeführt. Nach Abschluss der Wiederherstellung wird das Skript start.sh ausgeführt, um alle Docker-Container wieder zu starten.
+Anschliessend wählt der Benutzer die Wiederherstellungsmethode aus, und der entsprechende Vorgang wird durchgeführt. Nach Abschluss der Wiederherstellung wird das Skript start.sh ausgeführt, um alle Docker-Container wieder zu starten.
 
 ```bash
 #!/bin/bash
@@ -199,5 +205,7 @@ networks:
 Wie Sie sehen können, kann der Zeitplan jederzeit angepasst werden. Es wird jedoch nicht empfohlen, den Zeitplan zu ändern, da wir Updates nicht sofort ausführen möchten, um potenzielle Probleme zu vermeiden.
 
 ## OwnCloud
+
+
 
 ## Mail
