@@ -401,9 +401,73 @@ Wir sehen, dass alles funktioniert hat, wenn wir keine Fehlermeldungen sehen und
 
 ### OwnCloud (Share und Sync Server)
 
+Mit dem letztem Script haben wir alle nötigen Ordner schon erstellt. Trotzdem müssen wir jetzt aber zu `./docker/owncloud` und werden dort 2 Dateien erstellen. Einmal wäre das `.env` und einmal `docker-compose.yml`
+
+```bash
+cd owncloud
+```
+
+```bash
+touch .env docker-compose.yml
+```
+
+
+
 ### Mailu (Mail Server)
 
-### Backup und Restore Script
+
+
+#### Backup-Skript
+
+Nach zahlreichen Versuchen habe ich dieses Skript entwickelt:
+
+```bash
+#!/bin/bash
+timestamp=$(date +%Y_%m_%d-%H_%M_%S)
+log_dir="/var/log/tbz"
+log_file1="$log_dir/${timestamp}_backup-hdd.log"
+log_file2="$log_dir/${timestamp}_backup-tape.log"
+log_file_remote="$log_dir/${timestamp}_backup-remote.log"
+mkdir -p "$log_dir"
+source_dir="/home/arlind/docker/"
+local_backup_dir1="/home/arlind/backup-hdd"  # HDD
+local_backup_dir2="/home/arlind/backup-tape" # Tape
+
+# Erste lokale Sicherung mit rsync durchführen und Ausgabe protokollieren
+rsync -avh --delete "$source_dir" "$local_backup_dir1" > "$log_file1" 2>&1
+
+# Zweite lokale Sicherung mit rsync durchführen und Ausgabe protokollieren
+rsync -avh --delete "$source_dir" "$local_backup_dir2" > "$log_file2" 2>&1
+
+# Remote-Sicherungsziel (Offsite) festlegen
+remote_user="arlind"
+remote_host="localhost"
+remote_backup_dir="/home/arlind/backup-remote"
+
+# Remote-Sicherung mit rsync über SSH durchführen und Ausgabe protokollieren
+rsync -avh --delete -e "ssh -i /home/arlind/.ssh/ssh-key" "$source_dir" "$remote_user@$remote_host:$remote_backup_dir" > "$log_file_remote" 2>&1
+```
+
+Mit diesem Skript sichere ich alles im Verzeichnis `~/docker` und sende es an drei verschiedene Orte: einmal auf einer HDD und einem Tape, sowie über SSH an einen Offsite-Server (Cloud).
+
+Diese Orte sind rein theoretisch, ebenso wie der Cloud-Server und die beiden Festplatten, die auf meiner NVMe-Disk liegen. Dennoch könnte ich mit dieser Methode das Skript ausführen, wenn ich die entsprechende Hardware oder Cloud-Instanz hätte.
+
+Das Skript erfordert `sudo`-Rechte, um ausgeführt zu werden, da verschiedene Docker-Container, insbesondere Datenbankcontainer, ihre Daten mit speziellen Berechtigungen speichern. Dies ist jedoch kein Problem, da Cron-Jobs Skripte als `root` ausführen können. Falls ein Systemadministrator ein manuelles Backup durchführen muss, kann er dies problemlos durch Ausführen des folgenden Befehls tun:
+
+```bash
+sudo bash backup.sh
+```
+
+Hier ist der Cron-Job, der täglich um 20:00 Uhr ausgelöst wird:
+
+```bash
+0 20 * * * /bin/bash /home/arlind/docker/backup.sh
+```
+
+Die Logs sind wie gewohnt unter `/var/log/tbz` zu finden.
+
+#### Restore Script
+
 
 
 ## Testen
