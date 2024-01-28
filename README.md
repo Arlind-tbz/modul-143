@@ -216,7 +216,7 @@ touch /home/arlind/docker/traefik/data/acme.json
 chmod 600 /home/arlind/docker/traefik/data/acme.json
 ```
 
-Dieses Skript ist sehr nützlich, da es alle Berechtigungen richtig setzt und ein Docker-Netzwerk für die anderen Container erstellt. Außerdem erstellt es alle Dateien, die Traefik außer der `docker-compose.yml` Datei benötigt.
+Dieses Skript ist sehr nützlich, da es alle Berechtigungen richtig setzt und ein Docker-Netzwerk für die anderen Container erstellt. Ausserdem erstellt es alle Dateien, die Traefik ausser der `docker-compose.yml` Datei benötigt.
 
 Diesen Code können wir sehr einfach herunterladen.
 
@@ -466,9 +466,163 @@ Hier ist der Cron-Job, der täglich um 20:00 Uhr ausgelöst wird:
 
 Die Logs sind wie gewohnt unter `/var/log/tbz` zu finden.
 
-#### Restore Script
+#### Restore-Skript
 
+Für das Restore-Skript habe ich insgesamt drei Skripte benötigt.
 
+Zuerst ein Skript, um alle relevanten Container herunterzufahren, dann ein Skript, um alle Container wieder hochzufahren, und schliesslich das Restore-Skript selbst.
+
+Hier sind die erstellten Skripte:
+
+**stop.sh**
+
+```bash
+#!/bin/bash
+
+# Funktion, um zu überprüfen, ob eine Datei existiert
+file_exists() {
+  if [ -f "$1" ]; then
+    return 0  # Datei existiert
+  else
+    return 1  # Datei existiert nicht
+  fi
+}
+
+# Pfade zu den Docker-Compose-Dateien
+mailu_compose="/home/arlind/docker/mailu/docker-compose.yml"
+owncloud_compose="/home/arlind/docker/owncloud/docker-compose.yml"
+traefik_compose="/home/arlind/docker/traefik/docker-compose.yml"
+watchtower_compose="/home/arlind/docker/watchtower/docker-compose.yml"
+
+# Überprüfen, ob jede Datei existiert, und das entsprechende Docker-Compose stoppen, wenn ja
+if file_exists "$mailu_compose"; then
+  sudo docker-compose -f "$mailu_compose" down
+fi
+
+if file_exists "$owncloud_compose"; then
+  sudo docker-compose -f "$owncloud_compose" down
+fi
+
+if file_exists "$traefik_compose"; then
+  sudo docker-compose -f "$traefik_compose" down
+fi
+
+if file_exists "$watchtower_compose"; then
+  sudo docker-compose -f "$watchtower_compose" down
+fi
+```
+
+**start.sh**
+
+```bash
+#!/bin/bash
+
+# Funktion, um zu überprüfen, ob eine Datei existiert
+file_exists() {
+  if [ -f "$1" ]; then
+    return 0  # Datei existiert
+  else
+    return 1  # Datei existiert nicht
+  fi
+}
+
+# Pfade zu den Docker-Compose-Dateien
+traefik_compose="/home/arlind/docker/traefik/docker-compose.yml"
+watchtower_compose="/home/arlind/docker/watchtower/docker-compose.yml"
+owncloud_compose="/home/arlind/docker/owncloud/docker-compose.yml"
+mailu_compose="/home/arlind/docker/mailu/docker-compose.yml"
+
+# Überprüfen, ob jede Datei existiert, und das entsprechende Docker-Compose mit bestimmten Parametern starten, wenn ja
+if file_exists "$traefik_compose"; then
+  docker-compose -f "$traefik_compose" up -d
+fi
+
+if file_exists "$watchtower_compose"; then
+  docker-compose -f "$watchtower_compose" up -d
+fi
+
+if file_exists "$owncloud_compose"; then
+  docker-compose -f "$owncloud_compose" --env-file "/home/arlind/docker/owncloud/.env" up -d
+fi
+
+if file_exists "$mailu_compose"; then
+  docker-compose -f "$mailu_compose" --env-file "/home/arlind/docker/mailu/mailu.env" up -d
+fi
+```
+
+**restore.sh**
+
+```bash
+#!/bin/bash
+
+timestamp=$(date +%Y_%m_%d-%H_%M_%S)
+log_dir="/var/log/tbz"
+log_file1="$log_dir/${timestamp}_restore-hdd.log"
+log_file2="$log_dir/${timestamp}_restore-tape.log"
+log_file_remote="$log_dir/${timestamp}_restore-remote.log"
+
+remote_user="arlind"
+remote_host="localhost"
+remote_backup_dir="/home/arlind/backup-remote/*"
+
+bash /home/arlind/docker/stop.sh
+
+echo "Wählen Sie ein Skript zum Ausführen aus:"
+echo "1. Restore von HDD ausführen"
+echo "2. Restore von Tape ausführen"
+echo "3. Restore von Remote ausführen"
+read choice
+
+# Funktion zum Protokollieren von Nachrichten in die entsprechende Protokolldatei
+log_message() {
+  local log_file="$1"
+  local message="$2"
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $message" >> "$log_file"
+}
+
+case "$choice" in
+  1)
+    log_message "$log_file1" "Restore von HDD wird ausgeführt"
+    rm -rf /home/arlind/docker/mailu
+    rm -rf /home/arlind/docker/watchtower
+    rm -rf /home/arlind/docker/owncloud
+    rm -rf /home/arlind/docker/traefik
+    cp -r /home/arlind/backup-hdd/* /home/arlind/docker/
+    ;;
+  2)
+    log_message "$log_file2" "Restore von Tape wird ausgeführt"
+    rm -rf /home/arlind/docker/mailu
+    rm -rf /home/arlind/docker/watchtower
+    rm -rf /home/arlind/docker/owncloud
+    rm -rf /home/arlind/docker/traefik
+    cp -r /home/arlind/backup-tape/* /home/arlind/docker/
+    ;;
+  3)
+    log_message "$log_file_remote" "Restore von Remote wird ausgeführt"
+    rm -rf /home/arlind/docker/mailu
+    rm -rf /home/arlind/docker/watchtower
+    rm -rf /home/arlind/docker/owncloud
+    rm -rf /home/arlind/docker/traefik
+    scp -r -i /home/arlind/.ssh/ssh-key "$remote_user@$remote_host:$remote_backup_dir" /home/arlind/docker/ >> "$log_file_remote" 2>&1
+    ;;
+  *)
+    log_message "$log_file1" "Ungültige Auswahl. Bitte geben Sie 1, 2 oder 3 ein."
+    ;;
+esac
+
+bash /home/arlind/docker/start.sh
+```
+
+Das Restore-Skript funktioniert wie folgt:
+
+1. Es stoppt zuerst alle Container mit dem Skript `stop.sh`.
+2. Dann wird der Benutzer aufgefordert, eine Option für die Wiederherstellung auszuwählen: von der HDD, vom Tape oder von Remote.
+3. Basierend auf der Auswahl werden die entsprechenden Aktionen ausgeführt:
+   - Alle vorhandenen Daten im Originalverzeichnis werden gelöscht.
+   - Die Daten werden entweder von der HDD oder dem Tape mit `cp -r` wiederhergestellt oder von Remote mit `scp -r` über SSH geholt.
+4. Schliesslich werden alle Container mit dem Skript `start.sh` wieder gestartet.
+
+Nach Abschluss des Skripts sollten alle Container wiederhergestellt sein, und Sie können den Betrieb testen.
 
 ## Testen
 
