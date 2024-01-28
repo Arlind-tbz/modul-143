@@ -209,3 +209,47 @@ Wie Sie sehen können, kann der Zeitplan jederzeit angepasst werden. Es wird jed
 
 
 ## Mail
+
+### Benutzer erstellen
+
+Um Benutzer in Mailu zu erstellen, melden Sie sich zunächst im administrationsportal unter `mail.tbz.sulejmani.xyz` an.
+
+![mailu-login](./src/Mailu-Login.png)
+
+Es ist wichtig, dass Sie sich im Administrationsportal anmelden und nicht im Webmail.
+
+Navigieren Sie anschließend zur Benutzerliste.
+
+![Mail-nav-zu-user](./src/Mailu-Navigation-zu-Users.png)
+
+Klicken Sie zuerst auf "Mail domains" und dann auf das Briefsymbol neben der Domain `tbz.sulejmani.xyz`.
+
+![Mailu-Add-user](./src/Mailu-Add-user.png)
+
+Nachdem Sie sich in der Benutzerliste befinden, können Sie weitere Benutzer hinzufügen, indem Sie oben rechts auf die Schaltfläche "Benutzer hinzufügen" klicken.
+
+![Mailu-example-add-user](./src/Mailu-example-add-user.png)
+
+Hier können Sie Ihre Benutzer erstellen.
+
+### Benutzer bearbeiten (Passwortwiederherstellung)
+
+Um Benutzerinformationen zu bearbeiten, einschließlich der Passwortwiederherstellung, melden Sie sich im Administrationsportal unter `mail.tbz.sulejmani.xyz` an.
+
+![mailu-login](./src/Mailu-Login.png)
+
+Es ist wichtig, dass Sie sich im Administrationsportal anmelden und nicht im Webmail.
+
+Navigieren Sie dann zur Benutzerliste.
+
+![Mail-nav-zu-user](./src/Mailu-Navigation-zu-Users.png)
+
+Klicken Sie zuerst auf "Mail domains" und dann auf das Briefsymbol neben der Domain `tbz.sulejmani.xyz`.
+
+![Mailu-edit-user](./src/Mailu-edit-user.png)
+
+In der Benutzerliste sehen Sie verschiedene Symbole, die verschiedene Einstellungen für den Benutzer ermöglichen.
+
+![Mailu-example-user-edit](./src/Mailu-example-user-edit.png)
+
+Hier können Sie das Passwort und den Anzeigenamen ändern. Der E-Mail-Präfix bleibt jedoch unverändert, was sinnvoll ist, um Verwirrung zu vermeiden und den Betrieb reibungslos zu halten.
