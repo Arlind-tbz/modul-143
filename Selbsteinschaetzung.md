@@ -108,17 +108,18 @@ asdf
 
 - Die Sicherstellung, dass das Backup gemäss dem definierten Zeitplan erfolgreich durchgeführt wurde, ist technisch begründet (Überprüfung via Log-Files).
 
-asdf
+Sobald der Server nicht abstürzt, werden alle Backups Log-Dateien erstellen - tatsächlich drei Log-Dateien, eine für jede Standortkopie. Dies kann in [meinem Skript](./docker/backup.sh) nachverfolgt werden. Im Abschnitt [Backup-Skript](https://github.com/Arlind-tbz/modul-143/tree/main#backup-skript) habe ich dokumentiert, wie diese Überprüfung automatisiert ist.
 
 - Bei nicht erfolgreichem Backup wird automatisch alarmiert.
 
-asdf
+Wenn ein Backup fehlschlägt, wird eine entsprechende Log-Datei im Verzeichnis `/var/log/tbz/` erstellt, die anzeigt, dass der Rsync-Befehl nicht ordnungsgemäss ausgeführt wurde.
 
 - Proaktive Massnahmen (zum Beispiel bei voraussichtlichem Speichermangel) sind implementiert.
 
-asdf
+Benutzer haben immer eine Begrenzung für die Anzahl der Dateien, die sie speichern können. Diese Begrenzung kann jedoch vom Systemadministrator angepasst werden, wie in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) dokumentiert. Wenn der Server selbst knapp an Speicherplatz ist, sollte dies kein Problem darstellen, da Docker in der Regel keine Probleme hat, wenn sich die Dateisystemgrösse ändert.
 
 ### D3 Ich kann eine vollständige Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen, welche die Konfiguration sowie die Funktionalität dazu nachvollziehbar abbildet. Ich kann eine verständliche Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen.
+
 - Die Anleitung informiert sowohl den Benutzer als auch den Systemadministrator über alle relevanten Parameter für die Datensicherung.
 
 In meiner [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) und im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sollten alle [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story)) abgedeckt sein, und alle Schritte sind nachvollziehbar.
