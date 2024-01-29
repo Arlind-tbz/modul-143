@@ -45,19 +45,20 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
       - [Backup-Skript](#backup-skript)
       - [Restore-Skript](#restore-skript)
   - [Testen](#testen)
-    - [Szenario 1: Regelmäßige Datensicherungen](#szenario-1-regelmäßige-datensicherungen)
+    - [Szenario 1: Regelmässige Datensicherungen](#szenario-1-regelmässige-datensicherungen-1)
       - [Beweise](#beweise)
     - [Szenario 2: Mehrere Backup-Standorte](#szenario-2-mehrere-backup-standorte-1)
       - [Beweise](#beweise-1)
     - [Szenario 3: Verschlüsselung](#szenario-3-verschlüsselung-1)
       - [Beweise](#beweise-2)
-    - [Szenario 4: Regelmäßige Updates](#szenario-4-regelmäßige-updates)
+    - [Szenario 4: Regelmässige Updates](#szenario-4-regelmässige-updates-1)
       - [Beweise](#beweise-3)
     - [Szenario 5: Mail-Server](#szenario-5-mail-server-1)
       - [Beweise](#beweise-4)
     - [Szenario 6: Dokumentation](#szenario-6-dokumentation-1)
-    - [Szenario 7: Kostenoptimierung](#szenario-7-kostenoptimierung-1)
       - [Beweise](#beweise-5)
+    - [Szenario 7: Kostenoptimierung](#szenario-7-kostenoptimierung-1)
+      - [Beweise](#beweise-6)
 
 
 # Einleitung
@@ -1028,17 +1029,17 @@ Nach Abschluss des Skripts sollten alle Container wiederhergestellt sein, und Si
 
 ## Testen
 
-### Szenario 1: Regelmäßige Datensicherungen
+### Szenario 1: Regelmässige Datensicherungen
 
-- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sicherzustellen, dass diese ordnungsgemäß gespeichert wird.
+- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sicherzustellen, dass diese ordnungsgemäss gespeichert wird.
 
 Durchgeführt von Arlind Sulejmani
 
-| Testfall: 29.01.2024    | Anforderung: Regelmäßige Datensicherungen                                                                                                                                      |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Erwartetes Ergebnis:    | Regelmäßige Datensicherungen sollten durchgeführt werden.                                                                                                                      |
-| Tatsächliches Ergebnis: | Täglich wird eine Backup-Routine ausgeführt.                                                                                                                                   |
-| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups durchzuführen <br> 2. Überprüfung von Ordnern und Logs, um sicherzustellen, dass die Backups ordnungsgemäß durchgeführt wurden. |
+| Testfall: 29.01.2024    | Anforderung: Regelmässige Datensicherungen                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Erwartetes Ergebnis:    | Regelmässige Datensicherungen sollten durchgeführt werden.                                                                                                                      |
+| Tatsächliches Ergebnis: | Täglich wird eine Backup-Routine ausgeführt.                                                                                                                                    |
+| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups durchzuführen <br> 2. Überprüfung von Ordnern und Logs, um sicherzustellen, dass die Backups ordnungsgemäss durchgeführt wurden. |
 
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
@@ -1064,7 +1065,7 @@ Um sicherzustellen, dass die Backups tatsächlich durchgeführt werden, habe ich
 
 ### Szenario 2: Mehrere Backup-Standorte
 
-- Wir streben an, unsere Backups gemäß den Prinzipien des 3-2-1-Backups sicher zu speichern:
+- Wir streben an, unsere Backups gemäss den Prinzipien des 3-2-1-Backups sicher zu speichern:
   - 3 Kopien
   - 2 auf verschiedenen Medien
   - 1 in der Cloud
@@ -1102,8 +1103,8 @@ Durchgeführt von Arlind Sulejmani
 
 | Testfall: 29.01.2024    | Verschlüsselung                                                                                                                                                                           |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Erwartetes Ergebnis:    | Alles sollte sicher verschlüsselt sein, einschließlich der Datenübertragung.                                                                                                              |
-| Tatsächliches Ergebnis: | Alles ist sicher verschlüsselt, einschließlich der Datenübertragung.                                                                                                                      |
+| Erwartetes Ergebnis:    | Alles sollte sicher verschlüsselt sein, einschliesslich der Datenübertragung.                                                                                                             |
+| Tatsächliches Ergebnis: | Alles ist sicher verschlüsselt, einschliesslich der Datenübertragung.                                                                                                                     |
 | Testschritte            | Überprüfung des HTTPS-Datenverkehrs, Analyse von Containerdaten vom Hostsystem aus, Überprüfung des Backup-Skripts, um sicherzustellen, dass SSH für die Datenübertragung verwendet wird. |
 
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
@@ -1133,13 +1134,13 @@ Es ist wichtig sicherzustellen, dass die Daten in den Docker-Volumes sicher gesp
 
 ![Test-OwnCloud-docker-volumes](./src/Test-OwnCloud-docker-volumes.png)
 
-### Szenario 4: Regelmäßige Updates
+### Szenario 4: Regelmässige Updates
 
 - Wir planen, unsere Systeme immer auf dem neuesten Stand zu halten, indem wir jeden Freitagabend um 20:00 Uhr System-Upgrades durchführen.
 
 Durchgeführt von Arlind Sulejmani
 
-| Testfall: 29.01.2024    | Regelmäßige Updates                                                        |
+| Testfall: 29.01.2024    | Regelmässige Updates                                                       |
 | ----------------------- | -------------------------------------------------------------------------- |
 | Erwartetes Ergebnis:    | Jeden Freitagabend um 20:00 Uhr sollten Systemupdates durchgeführt werden. |
 | Tatsächliches Ergebnis: | Jeden Freitagabend um 20:00 Uhr werden Systemupdates durchgeführt.         |
@@ -1154,13 +1155,13 @@ Um unsere Updates durchzuführen, verwenden wir Watchtower. Dies ist sehr einfac
 
 ![Test-watchtower-schedule](./src/Test-Watchtower-schedule.png)
 
-Anschließend habe ich überprüft, ob dies auch tatsächlich funktioniert, indem ich die Logs überprüft habe. Im folgenden Bild ist zu sehen, dass am Freitag um 20:00 Uhr in unserer Zeitzone ein Upgrade geplant war.
+Anschliessend habe ich überprüft, ob dies auch tatsächlich funktioniert, indem ich die Logs überprüft habe. Im folgenden Bild ist zu sehen, dass am Freitag um 20:00 Uhr in unserer Zeitzone ein Upgrade geplant war.
 
 ![Test-watchtower-logs](./src/Test-Watchtower-logs.png)
 
 ### Szenario 5: Mail-Server
 
-- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschließlich für die interne Kommunikation.
+- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschliesslich für die interne Kommunikation.
 
 Durchgeführt von Arlind Sulejmani
 
@@ -1181,15 +1182,15 @@ Um dies zu testen, habe ich vom Adminbenutzer eine Mail an den Benutzer "user1@t
 
 ![Test-mail-intern](./src/Test-Mail-intern.png)
 
-##### Mails werden nach außen blockiert
+##### Mails werden nach aussen blockiert
 
-Ich habe getestet, ob Mails erfolgreich nach außen versendet werden können, indem ich eine E-Mail von meinem Adminbenutzer an meine private Gmail-Adresse geschickt habe. Diese E-Mail ist nicht angekommen, wie im Use-Case beschrieben.
+Ich habe getestet, ob Mails erfolgreich nach aussen versendet werden können, indem ich eine E-Mail von meinem Adminbenutzer an meine private Gmail-Adresse geschickt habe. Diese E-Mail ist nicht angekommen, wie im Use-Case beschrieben.
 
 ![Test-mail-extern](./src/Test-Mail-extern.png)
 
 ### Szenario 6: Dokumentation
 
-- Wir benötigen eine umfassende Dokumentation, die erläutert, wie Sie alle Aufgaben ausgeführt haben, und wie wir alles nutzen können, einschließlich der Synchronisierung und gemeinsamen Nutzung von Dateien sowie des E-Mail-Programms.
+- Wir benötigen eine umfassende Dokumentation, die erläutert, wie Sie alle Aufgaben ausgeführt haben, und wie wir alles nutzen können, einschliesslich der Synchronisierung und gemeinsamen Nutzung von Dateien sowie des E-Mail-Programms.
 
 Durchgeführt von Arlind Sulejmani
 
@@ -1202,9 +1203,15 @@ Durchgeführt von Arlind Sulejmani
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
 
+#### Beweise
+
+Ich habe eine umfassende Betriebsdokumentation erstellt, die allen zukünftigen Systemadministratoren als Leitfaden dienen soll. Dies gewährleistet den reibungslosen Betrieb des Systems, selbst wenn ich durch einen Unfall ausfalle oder das Unternehmen verlasse.
+
+Die Betriebsdokumentation ist über den folgenden Link verfügbar: [Betriebsdokumentation](./Betriebsdokumentation.md).
+
 ### Szenario 7: Kostenoptimierung
 
-- Unsere Präferenz liegt auf kosteneffizienten Lösungen. Das schließt die Verwendung von Zertifikaten von Let's Encrypt, zertifikatslosen Programmen und stromsparenden Anwendungen mit ein.
+- Unsere Präferenz liegt auf kosteneffizienten Lösungen. Das schliesst die Verwendung von Zertifikaten von Let's Encrypt, zertifikatslosen Programmen und stromsparenden Anwendungen mit ein.
 
 #### Beweise
 
