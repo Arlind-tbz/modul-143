@@ -152,6 +152,16 @@ Zunächst werde ich ein Bash-Skript erstellen, das alles korrekt sichert. Es wir
 
 Für die Wiederherstellung werde ich eine Auswahlmöglichkeit implementieren, von wo aus der Restore durchgeführt werden soll, zum Beispiel Remote, von der Festplatte (HDD) oder von Band (Tape).
 
+### Wie werden wir das Umsetzen?
+
+![Datensicherungskonzept](/src/Datensicherungskonzept.drawio.png)
+
+In unserem Datensicherungskonzept nutzen wir vier Docker-Stacks, wobei einer davon ein Proxy ist. Durch unseren Proxy ist der einzige offene Port Port 80 und 443, wobei Port 80 ausschliesslich für die Weiterleitung zum Port 443 verwendet wird. Auf diese Weise stellen wir sicher, dass alle Kommunikation verschlüsselt ist. Dies bietet einen erheblichen Vorteil, da unsere Mailserver nur intern kommunizieren. Somit ist es praktisch unmöglich, dass wir über Mailangriffe gefährdet werden, da unsere externe Kommunikation praktisch nicht existiert. Auf diese Weise gewährleisten wir, dass unsere Kommunikation sicher ist.
+
+Mit Hilfe von Watchtower führen wir jeden Freitagabend Updates an unseren Containern durch.
+
+Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Protokolle sind im Verzeichnis `/var/log/tbz` zu finden.
+
 ## Umsetzen
 
 Zuerst habe ich natürlich schon eine Ubuntu Server Umgebung, ich gehe jetzt nicht durch, wie man Ubuntu auf einem Server installiert, da es dafür schon genug Anleitungen gibt. Das gleiche auch für Docker installationen.
@@ -621,6 +631,27 @@ Dann gehen wir zu "Persönlich > Sicherheit" (Personal > Security) und richten T
 ### Mailu (Mail Server)
 
 
+
+### Backup und Restore
+
+#### Rsync
+
+Rsync ist wie ein kluges Tool, mit dem du Dateien von einem Ort zum anderen verschieben und synchronisieren kannst. Es ist besonders hilfreich, wenn du sicherstellen möchtest, dass deine Dateien immer aktuell sind, sei es auf deinem Computer oder auf einem anderen. Standardmässig wird das erste Backup ein Vollbackup sein, und alle nachfolgenden Backups werden inkrementell sein.
+
+Wir benötigen zwei Befehle: einen zum lokalen Speichern von Daten an einem anderen Ort und einen weiteren für ein Offsite-Backup.
+
+1. `rsync -avh --delete "$source_dir" "$local_backup_dir1"`
+
+   - Mit diesem Befehl kopierst du Dateien von einem Ort (den du in der Variable `$source_dir` festlegst) zu einem anderen Ort (den du in `$local_backup_dir1` festlegst). Dabei werden alle wichtigen Informationen wie Besitzer, Berechtigungen usw. beibehalten.
+   - Die Option `--delete` sorgt dafür, dass Dateien im Zielverzeichnis gelöscht werden, wenn sie im Quellverzeichnis nicht mehr vorhanden sind. So wird sichergestellt, dass beide Verzeichnisse immer auf dem gleichen Stand sind.
+
+2. `rsync -avh --delete -e "ssh -i /home/arlind/.ssh/ssh-key" "$source_dir" "$remote_user@$remote_host:$remote_backup_dir"`
+
+   - Dieser Befehl macht im Grunde dasselbe wie der erste, aber er kopiert Dateien von deinem Computer zu einem anderen Computer über das Internet (oder ein Netzwerk).
+   - Die Option `-e` gibt an, dass du SSH verwenden möchtest, um die Dateien sicher zu übertragen. SSH ist wie eine verschlüsselte Tunnelverbindung zwischen den beiden Computern.
+   - Der Pfad zum privaten SSH-Schlüssel wird mit `-i` angegeben, um sicherzustellen, dass du dich auf dem anderen Computer authentifizieren kannst.
+   - `$source_dir` ist das Verzeichnis, das du kopieren möchtest.
+   - `$remote_user@$remote_host:$remote_backup_dir` gibt an, wohin die Dateien auf dem anderen Computer kopiert werden sollen. `$remote_user` ist der Benutzername auf dem anderen Computer, `$remote_host` ist die Adresse des anderen Computers (IP-Adresse oder Domain), und `$remote_backup_dir` ist das Zielverzeichnis auf dem anderen Computer.
 
 #### Backup-Skript
 
