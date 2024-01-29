@@ -76,7 +76,7 @@ Wir möchten eine robuste Lösung zur Datensicherung implementieren, um die Sich
 
 ### Szenario 1: Regelmässige Datensicherungen
 
-- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sicherzustellen, dass diese ordnungsgemäss gespeichert wird.
+- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sie mithilfe von Bash-Skripten zuverlässig zu speichern.
 
 ### Szenario 2: Mehrere Backup-Standorte
 

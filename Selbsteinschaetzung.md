@@ -4,6 +4,8 @@
 
 ### A1 Ich kann vorhandene Datensicherungssysteme analysieren und unter Berücksichtigung von Rahmenbedingungen, Vorschriften und erhobene Daten (Einflussfaktoren) ein Datensicherungskonzept entwickeln und fachgerecht darstellen.
 
+**3/4**
+
 - User-Story beinhaltet komplexe Anforderungen mit zusätzlichen Services (nicht nur File-Ablage, sondern auch die Datensicherung von einem Web-Server oder Mail-Server)
 
 asdf
@@ -26,21 +28,19 @@ asdf
 
 ### A2 Ich kann anhand von aktuellen technischen Lösungen ein optimales Datensicherungsverfahren auswählen. Ich berücksichtige bei der Entwicklung des Datensicherungskonzepts anspruchsvolle Einflussfaktoren und weiss, wie diese bei der Realisierung technisch umgesetzt werden.
 
-- Das Datensicherungsverfahren ist begründet auf einen Use-Case evaluiert und angewendet. Verschiedene Verfahren werden miteinander verglichen und anhand von konkreten und messbaren Vergleichskriterien das geeignetste bestimmt.
+**3/4**
 
-asdf
+- Das Datensicherungsverfahren ist begründet auf einen Use-Case angewendet.
 
-- Der Restore-Prozess ist beschrieben und funktional dokumentiert und getestet worden.
+Die Backups werden vom [Szenario 1: Regelmässige Datensicherungen](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-1-regelm%C3%A4ssige-datensicherungen-1) erarbeitet. Wie diese gesichert werden kann man im Abschnitt [Backup-Skript](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#backup-skript) nachlesen.
 
-asdf
+- Der Restore-Prozess ist beschrieben und funktional dokumentiert.
 
-- Es wird konzeptionell klar unterschieden zwischen der Sicherung von Benutzerdaten (originäre Daten) und den Systemdaten (Systemkonfigurationsdaten oder Systemimages).
+Der Restore-Prozess ist in der [Betriebsdokumentation]((https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) im Abschnitt [Restore](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#restore) dokumentiert.
 
-asdf
+- Die gewählte technologische Umsetzung ist auf einen Use-Case angewendet. Wie die Datensicherung erfolgen kann, ist in der Arbeit konkret festgehalten.
 
-- Die gewählte technologische Umsetzung ist auf einen Use-Case angewendet. Wie die Datensicherung erfolgen kann, ist für unterschiedliche Services konkret festgehalten.
-
-asdf
+Die Technologie wurde vom [Szenario 1: Regelmässige Datensicherungen](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-1-regelm%C3%A4ssige-datensicherungen-1) abgeleitet.
 
 ## MACHBARKEIT
 
