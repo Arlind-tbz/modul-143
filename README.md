@@ -45,6 +45,12 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
       - [Backup-Skript](#backup-skript)
       - [Restore-Skript](#restore-skript)
   - [Testen](#testen)
+    - [Szenario 1: Regelmässige Datensicherungen](#szenario-1-regelmässige-datensicherungen-1)
+    - [Szenario 2: Mehrere Backup-Standorte](#szenario-2-mehrere-backup-standorte-1)
+    - [Szenario 3: Verschlüsselung](#szenario-3-verschlüsselung-1)
+    - [Szenario 4: Regelmässige Updates](#szenario-4-regelmässige-updates-1)
+    - [Szenario 5: Mail-Server](#szenario-5-mail-server-1)
+    - [Szenario 6: Dokumentation](#szenario-6-dokumentation-1)
 - [Reflektion](#reflektion)
   - [Speicherkapazität](#speicherkapazität)
 
@@ -744,7 +750,7 @@ Im Admin-Interface können wir jetzt den Spamfilter deaktivieren und einen Anzei
 
 **Warum deaktivieren wir den Spamfilter?**
 
-Wir deaktivieren den Spamfilter, um die Systemleistung zu schonen. Der Hauptgrund dafür ist jedoch, dass wir ihn nicht benötigen. Unsere Mail-Instanz ist lokal und dient nur für interne Kommunikation. Wir können keine E-Mails von extern empfangen oder nach außen senden. Dies ist eine spezielle Anforderung von Sota GmbH für diesen Anwendungsfall.
+Wir deaktivieren den Spamfilter, um die Systemleistung zu schonen. Der Hauptgrund dafür ist jedoch, dass wir ihn nicht benötigen. Unsere Mail-Instanz ist lokal und dient nur für interne Kommunikation. Wir können keine E-Mails von extern empfangen oder nach aussen senden. Dies ist eine spezielle Anforderung von Sota GmbH für diesen Anwendungsfall.
 
 ![Mailu-disable-span](./src/Mailu-disable-spam.png)
 
@@ -1017,7 +1023,100 @@ Nach Abschluss des Skripts sollten alle Container wiederhergestellt sein, und Si
 
 ## Testen
 
+### Szenario 1: Regelmässige Datensicherungen
 
+- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sicherzustellen, dass diese ordnungsgemäss gespeichert wird.
+
+Durchgeführt von Arlind Sulejmani
+
+| Testfall: 29.01.2024    | Anforderung: Regelmässige Datensicherungen                                                                                                                                           |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Erwartetes Ergebnis:    | Wir sollten regelmässig Datensicherungen durchführen.                                                                                                                                |
+| Tatsächliches Ergebnis: | Wir führen täglich eine Backup-Routine durch.                                                                                                                                        |
+| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups auszuführen <br> 2. Überprüfung von Ordnern und Protokollen, um sicherzustellen, dass die Backups ordnungsgemäss durchgeführt wurden. |
+
+Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+- [X] Ja
+
+### Szenario 2: Mehrere Backup-Standorte
+
+- Wir streben an, unsere Backups gemäss den Prinzipien des 3-2-1-Backups sicher zu speichern:
+  - 3 Kopien
+  - 2 auf verschiedenen Medien
+  - 1 in der Cloud
+
+Durchgeführt von Arlind Sulejmani
+
+| Testfall: 29.01.2024    | Mehrere Backup-Standorte                                                                  |
+| ----------------------- | ----------------------------------------------------------------------------------------- |
+| Erwartetes Ergebnis:    | Wir sollten 3 Kopien haben, von denen 2 auf verschiedenen Medien und 1 in der Cloud sind. |
+| Tatsächliches Ergebnis: | Wir haben 3 Kopien, von denen 2 auf verschiedenen Medien und 1 in der Cloud sind.         |
+| Testschritte            | Überprüfung aller Cloud-Speicherorte.                                                     |
+
+Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+- [X] Ja
+
+### Szenario 3: Verschlüsselung
+
+- Wir legen Wert darauf, dass E-Mails und Daten sicher verschlüsselt werden. Zudem sollte unsere gesamte Umgebung vollständig über HTTPS gesichert sein.
+
+Durchgeführt von Arlind Sulejmani
+
+| Testfall: 29.01.2024    | Verschlüsselung                                                                                                                                                                           |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Erwartetes Ergebnis:    | Alles sollte sicher verschlüsselt sein, einschliesslich der Datenübertragung.                                                                                                             |
+| Tatsächliches Ergebnis: | Alles ist sicher verschlüsselt, einschliesslich der Datenübertragung.                                                                                                                     |
+| Testschritte            | Überprüfung des HTTPS-Datenverkehrs, Analyse von Containerdaten vom Hostsystem aus, Überprüfung des Backup-Skripts, um sicherzustellen, dass SSH für die Datenübertragung verwendet wird. |
+
+Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+- [X] Ja
+
+### Szenario 4: Regelmässige Updates
+
+- Wir planen, unsere Systeme immer auf dem neuesten Stand zu halten, indem wir jeden Freitagabend um 20:00 Uhr System-Upgrades durchführen.
+
+Durchgeführt von Arlind Sulejmani
+
+| Testfall: 29.01.2024    | Regelmässige Updates                                                       |
+| ----------------------- | -------------------------------------------------------------------------- |
+| Erwartetes Ergebnis:    | Jeden Freitagabend um 20:00 Uhr sollten Systemupdates durchgeführt werden. |
+| Tatsächliches Ergebnis: | Jeden Freitagabend um 20:00 Uhr werden Systemupdates durchgeführt.         |
+| Testschritte            | Analyse des Watchtower-Containers und Überprüfung der Protokolle.          |
+
+Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+- [X] Ja
+
+### Szenario 5: Mail-Server
+
+- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschliesslich für die interne Kommunikation.
+
+Durchgeführt von Arlind Sulejmani
+
+| Testfall: 29.01.2024    | Mail-Server                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Erwartetes Ergebnis:    | Ein sicherer Mail-Server sollte existieren, der nur interne Kommunikation erlaubt.                           |
+| Tatsächliches Ergebnis: | Es existiert ein sicherer Mail-Server, der nur interne Kommunikation erlaubt.                                |
+| Testschritte            | Besuch von `mail.tbz.sulejmani.xyz`, Versenden interner E-Mails und Versuch des Versendens externer E-Mails. |
+
+Stimmt
+
+ das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+- [X] Ja
+
+### Szenario 6: Dokumentation
+
+- Wir benötigen eine umfassende Dokumentation, die erläutert, wie Sie alle Aufgaben ausgeführt haben, und wie wir alles nutzen können, einschliesslich der Synchronisierung und gemeinsamen Nutzung von Dateien sowie des E-Mail-Programms.
+
+Durchgeführt von Arlind Sulejmani
+
+| Testfall: 29.01.2024    | Dokumentation                                                                                       |
+| ----------------------- | --------------------------------------------------------------------------------------------------- |
+| Erwartetes Ergebnis:    | Es sollte eine Betriebsdokumentation existieren, die von Systemadministratoren genutzt werden kann. |
+| Tatsächliches Ergebnis: | Es existiert eine Betriebsdokumentation für Systemadministratoren.                                  |
+| Testschritte            | [Betriebsdokumentation](./Betriebsdokumentation.md)                                                 |
+
+Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+- [X] Ja
 
 # Reflektion
 
