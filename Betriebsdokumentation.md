@@ -222,6 +222,13 @@ Dort angekommen, können Sie neue Benutzer erstellen oder vorhandene bearbeiten.
 
 ![OwnCloud-Benutzerregister](./src/OwnCloud-Users-tab.png)
 
+#### Benutzergruppen
+
+| Gruppe | Use-Case             |
+| ------ | -------------------- |
+| Admin  | Für Admins           |
+| Users  | Für normale Benutzer |
+
 #### Benutzer erstellen
 
 Um einen neuen Benutzer zu erstellen, klicken Sie auf die Schaltfläche "Benutzer hinzufügen" in der Mitte des Fensters.
@@ -257,6 +264,13 @@ Navigieren Sie anschliessend zur Benutzerliste.
 ![Mail-nav-zu-user](./src/Mailu-Navigation-zu-Users.png)
 
 Klicken Sie zuerst auf "Mail domains" und dann auf das Briefsymbol neben der Domain `tbz.sulejmani.xyz`.
+
+#### Benutzergruppen
+
+| Gruppe | Use-Case             |
+| ------ | -------------------- |
+| Admin  | Für Admins           |
+| Users  | Für normale Benutzer |
 
 #### Benutzer erstellen
 

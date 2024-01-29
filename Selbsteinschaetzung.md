@@ -5,17 +5,42 @@
 ### A1 Ich kann vorhandene Datensicherungssysteme analysieren und unter Berücksichtigung von Rahmenbedingungen, Vorschriften und erhobene Daten (Einflussfaktoren) ein Datensicherungskonzept entwickeln und fachgerecht darstellen.
 
 - User-Story beinhaltet komplexe Anforderungen mit zusätzlichen Services (nicht nur File-Ablage, sondern auch die Datensicherung von einem Web-Server oder Mail-Server)
+
+asdf
+
 - Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
+
+asdf
+
 - Konkrete und messbare technische Anforderungen sind konzeptionell definiert (Partitionierung / Filesystem)
+
+asdf
+
 - Im Datensicherungskonzept ist für jeden Service definiert, in welcher Form (Speicherort, Datenmenge, Datenformat) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
+
+asdf
+
 - Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
+
+asdf
 
 ### A2 Ich kann anhand von aktuellen technischen Lösungen ein optimales Datensicherungsverfahren auswählen. Ich berücksichtige bei der Entwicklung des Datensicherungskonzepts anspruchsvolle Einflussfaktoren und weiss, wie diese bei der Realisierung technisch umgesetzt werden.
 
 - Das Datensicherungsverfahren ist begründet auf einen Use-Case evaluiert und angewendet. Verschiedene Verfahren werden miteinander verglichen und anhand von konkreten und messbaren Vergleichskriterien das geeignetste bestimmt.
+
+asdf
+
 - Der Restore-Prozess ist beschrieben und funktional dokumentiert und getestet worden.
+
+asdf
+
 - Es wird konzeptionell klar unterschieden zwischen der Sicherung von Benutzerdaten (originäre Daten) und den Systemdaten (Systemkonfigurationsdaten oder Systemimages).
+
+asdf
+
 - Die gewählte technologische Umsetzung ist auf einen Use-Case angewendet. Wie die Datensicherung erfolgen kann, ist für unterschiedliche Services konkret festgehalten.
+
+asdf
 
 ## MACHBARKEIT
 
@@ -109,41 +134,41 @@ asdf
 
 ## SYSTEM- UND BETRIEBSDOKUMENTATION
 
-### E1 Ich kann eine umfangreiche und visualisierte System- und Betriebsdokumentation erstellen.
+### E1 Erstellung einer umfassenden und visuellen System- und Betriebsdokumentation
 
-- Eine zur User-Story passende Betriebsdokumentation ist vorhanden, technisch korrekt abgebildet.
+- Eine auf die User-Story zugeschnittene Betriebsdokumentation wurde erstellt und korrekt technisch umgesetzt.
 
-asdf
+In meiner [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) habe ich umfangreiche Informationen basierend auf meiner [User-Story](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) dokumentiert. Dies umfasst Themen wie Password Recovery, die Erstellung neuer Nutzer und ein umfassendes Konzept zur Funktionsweise unseres Systems.
 
-- Die Betriebsdokumentation enthält Visualisierungen, wie Blockschaltbild und logischer Netzwerkplan, aus denen die wesentlichen Zusammenhänge der Systemumgebung erkennbar sind (Netzgrenzen, Virtualisierung)
+- Die Betriebsdokumentation enthält Visualisierungen wie ein Blockschaltbild und einen logischen Netzwerkplan, um die wesentlichen Zusammenhänge in der Systemumgebung zu verdeutlichen (Netzgrenzen, Virtualisierung).
 
-asdf
+In der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) habe ich ein [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) erstellt, das als Netzwerkplan und Datensicherungskonzept dient. Es enthält Informationen zu IPs, Konfigurationen und stellt die Backup-Strategie dar.
 
-- Die dargestellten Visualisierungen unterscheiden die Beispielhafte Umsetzung auf dem eigenen Notebook und der Umsetzung in einer produktiven Umgebung.
+- Die präsentierten Visualisierungen unterscheiden die beispielhafte Umsetzung auf meinem eigenen Notebook von der Umsetzung in einer produktiven Umgebung.
 
-asdf
+In meinem Plan ist visualisiert, dass wir einen Proxy verwenden und dass alle Kommunikation über diesen Server über den Proxy geleitet wird.
 
-- Die Freigaben und die zugehörenden Berechtigungen, Benutzer und Benutzergruppen sind für die einzelnen Services dokumentiert.
+- Die Freigaben und zugehörigen Berechtigungen, Benutzer und Benutzergruppen sind für die einzelnen Services dokumentiert.
 
-asdf
+Die Benutzergruppen für OwnCloud und Mailu sind in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) ausführlich dokumentiert, basierend auf meiner [User-Story](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story).
 
-### E2 Ich kann ein umfangreiches Testszenario für bestimmte Funktionalitäten erarbeiten und die erforderlichen Systemtests ausführen und dokumentieren.
+### E2 Erstellung eines umfassenden Testszenarios für bestimmte Funktionalitäten und Durchführung sowie Dokumentation der erforderlichen Systemtests.
 
-- Ein Testszenario ist anhand des Use-Cases und pro Service erarbeitet.
+- Ein Testszenario wurde anhand des Use-Cases und pro Service erarbeitet.
 
-asdf
+Alle [Testszenarien](https://github.com/Arlind-tbz/modul-143/tree/main#testen) basieren auf den Use-Cases in der [User-Story](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story).
 
-- Die Testprotokolle sind pro Service erstellt und nachvollziehbar.
+- Die Testprotokolle wurden pro Service erstellt und sind nachvollziehbar dokumentiert.
 
-asdf
+Die Testprotokolle sind pro Service strukturiert und in Fällen, in denen ein Test mehrere Services betrifft, wird dies dennoch gut und verständlich dokumentiert.
 
-- Die Tests werden anhand der Systemrückmeldung untersucht und deren Resultat bewertet.
+- Die Tests wurden anhand der Systemrückmeldung überprüft und die Ergebnisse wurden bewertet.
 
-asdf
+Alle Tests wurden sorgfältig durchgeführt und anhand von Logs und Fakten überprüft.
 
-- Bei nichterfolgreichen Tests werden proaktive Massnahmen definiert, wie der Fehler möglichst systemisch und automatisiert für weitere Durchläufe vermieden werden kann (Systemoptimierung).
+- Im Falle nicht erfolgreicher Tests wurden proaktive Massnahmen definiert, um Fehler möglichst systemisch und automatisiert für weitere Durchläufe zu vermeiden (Systemoptimierung).
 
-asdf
+Alle Tests waren erfolgreich und erforderten keine weiteren proaktiven Massnahmen.
 
 ## ERWEITERUNGEN
 
