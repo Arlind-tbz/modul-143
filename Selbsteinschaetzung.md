@@ -94,15 +94,17 @@ asdf
 
 - Der Vorteil, welcher eine Automatisierung für die Ausführung des Backups bringt, ist konkret ausgearbeitet.
 
-asdf
+Im Abschnitt [Wie werden wir das umsetzen?](https://github.com/Arlind-tbz/modul-143/tree/main#wie-werden-wir-das-umsetzen) habe ich kurz erläutert, warum wir in unserer Umgebung verstärkt auf Automatisierung setzen.
 
 - Die Automatisierung ist für unterschiedliche Services definiert, oder eine Zusatzfunktion, welche eine Automatisierung ermöglicht, wurde implementiert und dokumentiert.
 
-asdf
+Die Automatisierung für Updates wurde im Abschnitt [Watchtower (Update-Server)](https://github.com/Arlind-tbz/modul-143/tree/main#watchtower-update-server) dokumentiert.
+
+Die Automatisierung für Backups wurde im Abschnitt [Backup-Skript](https://github.com/Arlind-tbz/modul-143/tree/main#backup-skript) beschrieben.
 
 - Die Anforderungen sind anhand eines Use-Case für unterschiedliche Services begründet.
 
-asdf
+Alle Automatisierungen wurden gemäß den [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) implementiert, beispielsweise die automatischen Updates und Backups.
 
 ### D2 Ich kann eine bestehenden Sicherung- und Wiederherstellungsprozedur erstellen, prüfen, automatisieren und bei Bedarf optimieren oder anpassen.
 

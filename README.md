@@ -178,7 +178,7 @@ In unserem Datensicherungskonzept nutzen wir vier Docker-Stacks, wobei einer dav
 
 Mit Hilfe von Watchtower führen wir jeden Freitagabend Updates an unseren Containern durch.
 
-Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Logs sind im Verzeichnis `/var/log/tbz` zu finden.
+Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Logs sind im Verzeichnis `/var/log/tbz` zu finden. Die Automatisierung spielt eine zentrale Rolle in unserem Betriebsablauf, da sie das Risiko menschlicher Fehler minimiert und unsere Umgebung für längere Zeiträume ohne kontinuierliche Überwachung betriebsbereit hält.
 
 ## Umsetzen
 
