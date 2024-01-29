@@ -2,7 +2,9 @@
 
 ## DATENSICHERHEITSKONZEPT
 
-### A1 Ich kann vorhandene Datensicherungssysteme analysieren und unter Berücksichtigung von Rahmenbedingungen, Vorschriften und erhobene Daten (Einflussfaktoren) ein Datensicherungskonzept entwickeln und fachgerecht darstellen.
+### A1
+
+**Ich kann vorhandene Datensicherungssysteme analysieren und unter Berücksichtigung von Rahmenbedingungen, Vorschriften und erhobene Daten (Einflussfaktoren) ein Datensicherungskonzept entwickeln und fachgerecht darstellen.**
 
 **3/4**
 
@@ -26,7 +28,9 @@ asdf
 
 asdf
 
-### A2 Ich kann anhand von aktuellen technischen Lösungen ein optimales Datensicherungsverfahren auswählen. Ich berücksichtige bei der Entwicklung des Datensicherungskonzepts anspruchsvolle Einflussfaktoren und weiss, wie diese bei der Realisierung technisch umgesetzt werden.
+### A2
+
+**Ich kann anhand von aktuellen technischen Lösungen ein optimales Datensicherungsverfahren auswählen. Ich berücksichtige bei der Entwicklung des Datensicherungskonzepts anspruchsvolle Einflussfaktoren und weiss, wie diese bei der Realisierung technisch umgesetzt werden.**
 
 **3/4**
 
@@ -44,7 +48,9 @@ Die Technologie wurde vom [Szenario 1: Regelmässige Datensicherungen](https://g
 
 ## MACHBARKEIT
 
-### B1 Ich kann aufgrund von technischen und betriebswirtschaftlichen Kriterien ein individualisiertes Datensicherungskonzept erstellen und auf Machbarkeit überprüfen.
+### B1
+
+**Ich kann aufgrund von technischen und betriebswirtschaftlichen Kriterien ein individualisiertes Datensicherungskonzept erstellen und auf Machbarkeit überprüfen.**
 
 **3/4**
 
@@ -62,7 +68,9 @@ Die Qualitätssicherungsmerkmale werden in den [Testfällen](https://github.com/
 
 ## BERDARFSERMITTLUNG
 
-### C1 Ich kann den aktuellen und längerfristigen Speicherbedarf ermitteln und individualisierte Lösungen (Geräte, Speichermedien) sowie optimale Datenstandorte (On-Prem, Cloud) ausarbeiten und anbieten.
+### C1
+
+**Ich kann den aktuellen und längerfristigen Speicherbedarf ermitteln und individualisierte Lösungen (Geräte, Speichermedien) sowie optimale Datenstandorte (On-Prem, Cloud) ausarbeiten und anbieten.**
 
 **3/4**
 
@@ -76,7 +84,9 @@ In meiner Planung wird davon ausgegangen, dass täglich um 20:00 Uhr ein Backup 
 
 ## SICHERUNGSPROZEDUREN
 
-### D1 Ich kann selbständig eine funktionsfähige Sicherungs- und Wiederherstellungsprozedur erstellen, automatisieren, testen und individuellen Anforderungen anpassen.
+### D1
+
+**Ich kann selbständig eine funktionsfähige Sicherungs- und Wiederherstellungsprozedur erstellen, automatisieren, testen und individuellen Anforderungen anpassen.**
 
 **4/4**
 
@@ -94,7 +104,9 @@ Die Automatisierung für Backups wurde im Abschnitt [Backup-Skript](https://gith
 
 Alle Automatisierungen wurden gemäss den [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) implementiert, beispielsweise die automatischen Updates und Backups.
 
-### D2 Ich kann eine bestehenden Sicherung- und Wiederherstellungsprozedur erstellen, prüfen, automatisieren und bei Bedarf optimieren oder anpassen.
+### D2
+
+**Ich kann eine bestehenden Sicherung- und Wiederherstellungsprozedur erstellen, prüfen, automatisieren und bei Bedarf optimieren oder anpassen.**
 
 **4/4**
 
@@ -110,7 +122,9 @@ Wenn ein Backup fehlschlägt, wird eine entsprechende Log-Datei im Verzeichnis `
 
 Benutzer haben immer eine Begrenzung für die Anzahl der Dateien, die sie speichern können. Diese Begrenzung kann jedoch vom Systemadministrator angepasst werden, wie in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) dokumentiert. Wenn der Server selbst knapp an Speicherplatz ist, sollte dies kein Problem darstellen, da Docker in der Regel keine Probleme hat, wenn sich die Dateisystemgrösse ändert.
 
-### D3 Ich kann eine vollständige Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen, welche die Konfiguration sowie die Funktionalität dazu nachvollziehbar abbildet. Ich kann eine verständliche Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen.
+### D3
+
+**Ich kann eine vollständige Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen, welche die Konfiguration sowie die Funktionalität dazu nachvollziehbar abbildet. Ich kann eine verständliche Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen.**
 
 **4/4**
 
@@ -128,7 +142,9 @@ Der Prozess ist im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-
 
 ## SYSTEM- UND BETRIEBSDOKUMENTATION
 
-### E1 Erstellung einer umfassenden und visuellen System- und Betriebsdokumentation
+### E1
+
+**Erstellung einer umfassenden und visuellen System- und Betriebsdokumentation**
 
 **4/4**
 
@@ -148,7 +164,9 @@ In meinem Plan ist visualisiert, dass wir einen Proxy verwenden und dass alle Ko
 
 Die Benutzergruppen für OwnCloud und Mailu sind in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) ausführlich dokumentiert, basierend auf meiner [User-Story](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story).
 
-### E2 Erstellung eines umfassenden Testszenarios für bestimmte Funktionalitäten und Durchführung sowie Dokumentation der erforderlichen Systemtests.
+### E2
+
+**Erstellung eines umfassenden Testszenarios für bestimmte Funktionalitäten und Durchführung sowie Dokumentation der erforderlichen Systemtests.**
 
 **4/4**
 
@@ -170,7 +188,9 @@ Alle Tests waren erfolgreich und erforderten keine weiteren proaktiven Massnahme
 
 ## ERWEITERUNGEN
 
-### F1 Mehrere Zusatzfunktionen und oder Überlegungen sind vorhanden. Die erreichte Funktionalität und Qualität der Arbeit ist insgesamt deutlich über den Erwartungen.
+### F1
+
+**Mehrere Zusatzfunktionen und oder Überlegungen sind vorhanden. Die erreichte Funktionalität und Qualität der Arbeit ist insgesamt deutlich über den Erwartungen.**
 
 **3/4**
 
