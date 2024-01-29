@@ -6,27 +6,23 @@
 
 **Ich kann vorhandene Datensicherungssysteme analysieren und unter Berücksichtigung von Rahmenbedingungen, Vorschriften und erhobene Daten (Einflussfaktoren) ein Datensicherungskonzept entwickeln und fachgerecht darstellen.**
 
-**3/4**
+**2.5/4**
 
-- User-Story beinhaltet komplexe Anforderungen mit zusätzlichen Services (nicht nur File-Ablage, sondern auch die Datensicherung von einem Web-Server oder Mail-Server)
+- User-Story ist vorhanden, welche konkret einen Service beschreibt (zum Beispiel die Speicherung von Benutzerdaten).
 
-asdf
+Eine detaierte [User-Story](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#fiktive-user-story) ist vorhanden.
 
-- Die Vorgaben gemäss der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind eingehalten.
+- Elemente aus der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind vorhanden.
 
-asdf
+Es sind **keine** Datenschutzgesetze vorhanden.
 
-- Konkrete und messbare technische Anforderungen sind konzeptionell definiert (Partitionierung / Filesystem)
+- Konkrete und messbare technische Anforderungen sind konzeptionell definiert - Einflussfaktoren sind auf User-Story abgestützt.
 
-asdf
+Mit dem [Szenario 7: Kostenoptimierung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) habe ich versucht viele technische Daten zusammen in Verbindung zukriegen mithilfe von [Systemleistung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) und [Datenzuwachs](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung).
 
-- Im Datensicherungskonzept ist für jeden Service definiert, in welcher Form (Speicherort, Datenmenge, Datenformat) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
+- Im Datensicherungskonzept ist ersichtlich, in welcher Form (Speicherort, Datenmenge) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
 
-asdf
-
-- Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
-
-asdf
+Im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sieht mann, dass jeden Tag um 20:00 die Backups ausgeführt werden, aber man sieht **nicht**, die Datenmenge oder Versionierung.
 
 ### A2
 
