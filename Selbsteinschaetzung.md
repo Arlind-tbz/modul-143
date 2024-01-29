@@ -68,11 +68,11 @@ Die Qualitätssicherungsmerkmale werden in den [Testfällen](https://github.com/
 
 - Die zu sichernde Datenmenge wird thematisiert (zum Beispiel Datenzuwachs oder Speicheroptimierung durch Datenarchivieren), sowie der daraus abzuleitende Speicherplatz definiert.
 
-asdf
+Die Archivierung von Daten und Datenwachstum wird im Abschnitt [Datenwachstum](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datenzuwachs) dokumentiert.
 
 - Die zeitlichen Abhängigkeiten werden anhand der gewählten Backupstrategie definiert.
 
-asdf
+In meiner Planung wird davon ausgegangen, dass täglich um 20:00 Uhr ein Backup durchgeführt wird, allerdings ist dies irrelevant, da meine Backups inkrementell sind. Weitere Details finden sich im Abschnitt [Datenwachstum](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datenzuwachs).
 
 ## SICHERUNGSPROZEDUREN
 
@@ -92,7 +92,7 @@ Die Automatisierung für Backups wurde im Abschnitt [Backup-Skript](https://gith
 
 - Die Anforderungen sind anhand eines Use-Case für unterschiedliche Services begründet.
 
-Alle Automatisierungen wurden gemäß den [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) implementiert, beispielsweise die automatischen Updates und Backups.
+Alle Automatisierungen wurden gemäss den [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) implementiert, beispielsweise die automatischen Updates und Backups.
 
 ### D2 Ich kann eine bestehenden Sicherung- und Wiederherstellungsprozedur erstellen, prüfen, automatisieren und bei Bedarf optimieren oder anpassen.
 
@@ -180,7 +180,7 @@ Mein [Restore-Skript](./docker/restore.sh) funktioniert einwandfrei, solange ein
 
 - Es ist mehr als ein zusätzlicher Service definiert
 
-Ich konnte 2 zusätzliche Services implementieren: einen Update-Server mithilfe von [Watchtower](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#watchtower-update-server), einen Reverse Proxy mithilfe von [Traefik](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#traefik-reverse-proxy) und einen [Mailserver](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#mailu-mail-server) mithilfe von Mailu. Beide dieser Services wurden dokumentiert und getestet.
+Ich konnte 3 zusätzliche Services implementieren: einen Update-Server mithilfe von [Watchtower](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#watchtower-update-server), einen Reverse Proxy mithilfe von [Traefik](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#traefik-reverse-proxy) und einen [Mailserver](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#mailu-mail-server) mithilfe von Mailu. Alle Services wurden dokumentiert und getestet.
 
 - Die Dokumentation ist fortschrittlich umgesetzt (Markdown-Format, in einem Repository integriert, für die Benutzeranleitung wird ein Wiki verwendet oder in Form eines Mindmaps abgebildet)
 
