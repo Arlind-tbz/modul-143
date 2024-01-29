@@ -3,6 +3,7 @@
 Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme implementieren"
 
 - [Kompetenzmatrix](./Kompetenzmatrix.MD)
+- [Betriebsdokumentation](./Betriebsdokumentation.md)
 - [Punktebewertung Praxisarbeit mit Erklärungen](./src/M143-Punktebewertung-Praxisarbeit-mit-Erklärungen.pdf)
 - [Selbsteinschätzung](./Selbsteinschaetzung.md)
 - [Dockerfiles](./docker/)
@@ -574,7 +575,7 @@ Klicken Sie dazu oben rechts auf Ihren Benutzernamen und wählen Sie "Benutzer".
 
 Sobald wir hier sind, sehen wir unseren Admin-Benutzer und ändern sein Passwort.
 
-![OwnCloud-Change-Admin-PW](./src/OwnCloud-Change-Admin-Password.png)
+![OwnCloud-Change-Admin-PW](./src/OwnCloud-change-Admin-Password.png)
 
 ##### Benutzer erstellen
 
@@ -586,7 +587,7 @@ Klicken Sie erneut oben rechts auf Ihren Benutzernamen und wählen Sie "Benutzer
 
 Sobald wir hier sind, sehen wir unseren Admin-Benutzer und können oben neue Benutzer erstellen.
 
-![OwnCloud-Create-Users](./src/OwnCloud-Create-Users.png)
+![OwnCloud-Create-Users](./src/OwnCloud-create-users.png)
 
 Ich werde 6 Benutzer erstellen:
 
@@ -599,7 +600,7 @@ Ich werde 6 Benutzer erstellen:
 | user5        | password | user5@tbz.sulejmani.xyz | Users   |
 | user6        | password | user6@tbz.sulejmani.xyz | Users   |
 
-![OwnCloud-User-List](./src/OwnCloud-User-List.png)
+![OwnCloud-User-List](./src/OwnCloud-User-list.png)
 
 ##### Server-seitige Verschlüsselung
 
@@ -611,7 +612,7 @@ Um dies einzustellen, navigieren wir zuerst zu "Einstellungen" (Settings) und da
 
 Dort aktivieren wir die serverseitige Verschlüsselung.
 
-![OwnCloud-Enable-Server-Side-Encryption](./src/OwnCloud-Enable-Server-Side-Encryption.png)
+![OwnCloud-Enable-Server-Side-Encryption](./src/OwnCloud-enable-Server-Side-Encryption.png)
 
 Das Aktivieren des Häkchens reicht jedoch nicht aus. Wir müssen auch das Modul aktivieren. Dies kann unter "Verwaltung > Apps" (Admin > Apps) erfolgen.
 
@@ -619,7 +620,7 @@ Das Aktivieren des Häkchens reicht jedoch nicht aus. Wir müssen auch das Modul
 
 Hier suchen und aktivieren wir das "Default encryption module".
 
-![OwnCloud-Test-Encryption](./src/OwnCloud-Test-Encryption.png)
+![OwnCloud-Test-Encryption](./src/OwnCloud-test-encryption.png)
 
 Jetzt sehen wir unter "Verwaltung > Verschlüsselung" (Admin > Encryption), dass das "Default encryption module" verwendet wird.
 
@@ -631,11 +632,11 @@ Zuerst gehen wir oben links zu "Einstellungen" (Settings) und dann zum "Markt" (
 
 Sobald wir dort sind, suchen wir nach einem Add-On namens "2-Factor Authentication".
 
-![OwnCloud-Find-2FA](./src/OwnCloud-Find-2FA.png)
+![OwnCloud-Find-2FA](./src/OwnCloud-find-2fa.png)
 
 Sobald wir es gefunden haben, klicken wir darauf und installieren es.
 
-![OwnCloud-Install-2FA](./src/OwnCloud-Install-2FA.png)
+![OwnCloud-Install-2FA](./src/OwnCloud-install-2fa.png)
 
 Jetzt haben wir es installiert, müssen es aber noch einrichten. Dafür gehen wir zurück zu "Einstellungen" (Settings) oben rechts.
 
@@ -643,7 +644,7 @@ Jetzt haben wir es installiert, müssen es aber noch einrichten. Dafür gehen wi
 
 Dann gehen wir zu "Persönlich > Sicherheit" (Personal > Security) und richten TOTP ein, verwenden Sie dazu einen Passwort-Manager Ihrer Wahl, in meinem Fall Proton Pass.
 
-![OwnCloud-TOTP-Security](./src/OwnCloud-TOTP-Security.png)
+![OwnCloud-TOTP-Security](./src/OwnCloud-TOTP-security.png)
 
 ### Mailu (Mail Server)
 
@@ -746,7 +747,7 @@ created admin user
 
 Jetzt haben wir den Admin-Benutzer erstellt und können uns im Webinterface für das Admin-Portal anmelden.
 
-![Mailu-Anmelden-Admin](./src/Mailu-Anmelden-Admin.png)
+![Mailu-Anmelden-Admin](./src/Mailu-Sign-in-admin.png)
 
 #### Konfiguration
 
