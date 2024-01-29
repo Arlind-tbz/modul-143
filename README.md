@@ -412,6 +412,116 @@ cd owncloud
 touch .env docker-compose.yml
 ```
 
+In der Datei `docker-compose.yml` werden wir diesen Inhalt hinzufügen:
+
+```yml
+version: "3"
+
+services:
+
+  owncloud:
+    image: owncloud/server:${OWNCLOUD_VERSION}
+    container_name: owncloud-server
+    networks:
+      proxy:
+        ipv4_address: 172.16.3.1
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.owncloud.entrypoints=http
+      - traefik.http.routers.owncloud.rule=Host(`owncloud.tbz.domain.tld`) # ersetzen mit deiner Domain
+      - traefik.http.middlewares.owncloud-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.owncloud.middlewares=owncloud-https-redirect
+      - traefik.http.routers.owncloud-secure.entrypoints=https
+      - traefik.http.routers.owncloud-secure.rule=Host(`owncloud.tbz.domain.tld`) # ersetzen mit deiner Domain
+      - traefik.http.routers.owncloud-secure.tls=true
+      - traefik.http.routers.owncloud-secure.service=owncloud
+      - traefik.http.services.owncloud.loadbalancer.server.port=8080 # Port 8080 vom Container weiterleiten zu Port 80 auf Treafik
+      - traefik.docker.network=proxy
+    depends_on: # OwnCloud startet erst, wenn mariadb und redis funktionieren
+      - mariadb
+      - redis
+    environment:
+      - OWNCLOUD_DOMAIN=${OWNCLOUD_DOMAIN}
+      - OWNCLOUD_TRUSTED_DOMAINS=${OWNCLOUD_TRUSTED_DOMAINS}
+      - OWNCLOUD_DB_TYPE=mysql
+      - OWNCLOUD_DB_NAME=owncloud
+      - OWNCLOUD_DB_USERNAME=owncloud
+      - OWNCLOUD_DB_PASSWORD=owncloud
+      - OWNCLOUD_DB_HOST=mariadb
+      - OWNCLOUD_ADMIN_USERNAME=${ADMIN_USERNAME}
+      - OWNCLOUD_ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - OWNCLOUD_MYSQL_UTF8MB4=true
+      - OWNCLOUD_REDIS_ENABLED=true
+      - OWNCLOUD_REDIS_HOST=redis
+    healthcheck:
+      test: ["CMD", "/usr/bin/healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - ./data:/mnt/data
+
+  mariadb: # Standart MariaDB Umgebung für OwnCloud
+    image: mariadb:10.11 # minimum required ownCloud version is 10.9
+    container_name: owncloud-mariadb
+    networks:
+      proxy:
+        ipv4_address: 172.16.3.2
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=owncloud
+      - MYSQL_USER=owncloud
+      - MYSQL_PASSWORD=owncloud
+      - MYSQL_DATABASE=owncloud
+      - MARIADB_AUTO_UPGRADE=1
+    command: ["--max-allowed-packet=128M", "--innodb-log-file-size=64M"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-u", "root", "--password=owncloud"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+  redis: # Standart redis Umgebung für OwnCloud
+    image: redis:6
+    container_name: owncloud-redis
+    networks:
+      proxy:
+        ipv4_address: 172.16.3.3
+    restart: always
+    command: ["--databases", "1"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - ./redis:/data
+
+networks: # Proxy network, damit Traefik funktioniert
+  proxy:
+    external: true
+```
+
+Und wir werden dies in der `.env` einfügen.
+
+```bash
+OWNCLOUD_VERSION=latest # nicht verändern.
+OWNCLOUD_DOMAIN=localhost:8080 # anpassen mit deiner Domain
+OWNCLOUD_TRUSTED_DOMAINS=localhost:8080 # anpassen mit deiner Domain
+ADMIN_USERNAME=admin # nicht verändern
+ADMIN_PASSWORD=admin # nicht verändern
+HTTP_PORT=8080 # nicht verändern
+```
+
+Sobald wir dies einfügt habe könne wir die Umgebung starten und auf owncloud.tbz.domain.tld gehen, in meinem fall owncloud.tbz.sulejmani.xyz
+
+```bash
+docker compose up -d
+```
+
 
 
 ### Mailu (Mail Server)
