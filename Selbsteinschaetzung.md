@@ -46,6 +46,8 @@ asdf
 
 ### B1 Ich kann aufgrund von technischen und betriebswirtschaftlichen Kriterien ein individualisiertes Datensicherungskonzept erstellen und auf Machbarkeit überprüfen.
 
+**3/4**
+
 - Der gewählte Speicherort wird aus den Anforderungen gemäss dem Use-Case abgeleitet.
 
 In einer Docker-Umgebung ist es immer vorteilhaft für Systemadministratoren, Bind-Volumes zu nutzen, wie es in unserer Umgebung der Fall ist. Im [Use-Case](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) werden die erforderlichen Daten erläutert. Aus Kosteneffizienzgründen werden jedoch alle Daten im Ordner `./docker` gespeichert, wobei alle Daten verschlüsselt sind.
@@ -62,29 +64,21 @@ Die Qualitätssicherungsmerkmale werden in den [Testfällen](https://github.com/
 
 ### C1 Ich kann den aktuellen und längerfristigen Speicherbedarf ermitteln und individualisierte Lösungen (Geräte, Speichermedien) sowie optimale Datenstandorte (On-Prem, Cloud) ausarbeiten und anbieten.
 
-- Die zu sichernde Datenmenge wird konkret anhand eines Use-Cases und mit Bezug auf unterschiedliche Services visualisiert festgehalten (zum Beispiel Datenzuwachs oder Speicheroptimierung durch Datenarchivieren).
+**3/4**
+
+- Die zu sichernde Datenmenge wird thematisiert (zum Beispiel Datenzuwachs oder Speicheroptimierung durch Datenarchivieren), sowie der daraus abzuleitende Speicherplatz definiert.
 
 asdf
 
-- Der daraus abzuleitende Speicherplatz wird konkret definiert. Die unterschiedlichen Ablageorte und deren Nutzen sind definiert.
-
-asdf
-
-- Die zeitlichen Abhängigkeiten werden anhand der gewählten Backupstrategie und dem Use-Case definiert.
-
-asdf
-
-- Die Unterschiede einer lokalen Datenspeicherung und einer Cloud-Basierten Datenspeicherung sind ersichtlich.
-
-asdf
-
-- Die Kostenfolgen sowie rechtliche Aspekte sind bei der Wahl einer Cloud-Lösung thematisiert. Die Leistung von unterschiedlichen Providern wird verglichen.
+- Die zeitlichen Abhängigkeiten werden anhand der gewählten Backupstrategie definiert.
 
 asdf
 
 ## SICHERUNGSPROZEDUREN
 
 ### D1 Ich kann selbständig eine funktionsfähige Sicherungs- und Wiederherstellungsprozedur erstellen, automatisieren, testen und individuellen Anforderungen anpassen.
+
+**4/4**
 
 - Der Vorteil, welcher eine Automatisierung für die Ausführung des Backups bringt, ist konkret ausgearbeitet.
 
@@ -102,6 +96,8 @@ Alle Automatisierungen wurden gemäß den [Use-Cases](https://github.com/Arlind-
 
 ### D2 Ich kann eine bestehenden Sicherung- und Wiederherstellungsprozedur erstellen, prüfen, automatisieren und bei Bedarf optimieren oder anpassen.
 
+**4/4**
+
 - Die Sicherstellung, dass das Backup gemäss dem definierten Zeitplan erfolgreich durchgeführt wurde, ist technisch begründet (Überprüfung via Log-Files).
 
 Sobald der Server nicht abstürzt, werden alle Backups Log-Dateien erstellen - tatsächlich drei Log-Dateien, eine für jede Standortkopie. Dies kann in [meinem Skript](./docker/backup.sh) nachverfolgt werden. Im Abschnitt [Backup-Skript](https://github.com/Arlind-tbz/modul-143/tree/main#backup-skript) habe ich dokumentiert, wie diese Überprüfung automatisiert ist.
@@ -115,6 +111,8 @@ Wenn ein Backup fehlschlägt, wird eine entsprechende Log-Datei im Verzeichnis `
 Benutzer haben immer eine Begrenzung für die Anzahl der Dateien, die sie speichern können. Diese Begrenzung kann jedoch vom Systemadministrator angepasst werden, wie in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) dokumentiert. Wenn der Server selbst knapp an Speicherplatz ist, sollte dies kein Problem darstellen, da Docker in der Regel keine Probleme hat, wenn sich die Dateisystemgrösse ändert.
 
 ### D3 Ich kann eine vollständige Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen, welche die Konfiguration sowie die Funktionalität dazu nachvollziehbar abbildet. Ich kann eine verständliche Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen.
+
+**4/4**
 
 - Die Anleitung informiert sowohl den Benutzer als auch den Systemadministrator über alle relevanten Parameter für die Datensicherung.
 
@@ -131,6 +129,8 @@ Der Prozess ist im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-
 ## SYSTEM- UND BETRIEBSDOKUMENTATION
 
 ### E1 Erstellung einer umfassenden und visuellen System- und Betriebsdokumentation
+
+**4/4**
 
 - Eine auf die User-Story zugeschnittene Betriebsdokumentation wurde erstellt und korrekt technisch umgesetzt.
 
@@ -149,6 +149,8 @@ In meinem Plan ist visualisiert, dass wir einen Proxy verwenden und dass alle Ko
 Die Benutzergruppen für OwnCloud und Mailu sind in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) ausführlich dokumentiert, basierend auf meiner [User-Story](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story).
 
 ### E2 Erstellung eines umfassenden Testszenarios für bestimmte Funktionalitäten und Durchführung sowie Dokumentation der erforderlichen Systemtests.
+
+**4/4**
 
 - Ein Testszenario wurde anhand des Use-Cases und pro Service erarbeitet.
 
@@ -170,18 +172,16 @@ Alle Tests waren erfolgreich und erforderten keine weiteren proaktiven Massnahme
 
 ### F1 Mehrere Zusatzfunktionen und oder Überlegungen sind vorhanden. Die erreichte Funktionalität und Qualität der Arbeit ist insgesamt deutlich über den Erwartungen.
 
-- Die Qualität der Arbeit übersteigt die normalen Anforderungen
+**3/4**
 
-asdf
+- Die eigentliche Systemwiederherstellung ist ebenfalls thematisiert oder umgesetzt
 
-- Die erstellte Umgebung hat eine gewisse Komplexität.
+Mein [Restore-Skript](./docker/restore.sh) funktioniert einwandfrei, solange ein Backup vorhanden ist. Es bietet die Möglichkeit, die Restore-Location auszuwählen, sei es HDD, Tape oder Remote. Für den Remote Restore musste ich auch den Befehl `scp -r` anpassen, wie im Abschnitt [Restore-Skript](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#restore-skript) beschrieben.
 
-asdf
+- Es ist mehr als ein zusätzlicher Service definiert
 
-- Lösungsvarianten vergleichen mit konkreten Kriterien, zum Beispiel Energieverbrauch, Kosten, Sicherheit, Auswirkung auf Anwendungsfall, Skalierung und der daraus resultierenden Empfehlung.
+Ich konnte 2 zusätzliche Services implementieren: einen Update-Server mithilfe von [Watchtower](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#watchtower-update-server), einen Reverse Proxy mithilfe von [Traefik](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#traefik-reverse-proxy) und einen [Mailserver](https://github.com/Arlind-tbz/modul-143/tree/main?tab=readme-ov-file#mailu-mail-server) mithilfe von Mailu. Beide dieser Services wurden dokumentiert und getestet.
 
-asdf
+- Die Dokumentation ist fortschrittlich umgesetzt (Markdown-Format, in einem Repository integriert, für die Benutzeranleitung wird ein Wiki verwendet oder in Form eines Mindmaps abgebildet)
 
-- Risiko-Analyse der ausgearbeiteten Backup- und Restore-Lösung
-
-asdf
+Die gesamte Dokumentation ist im Markdown-Format verfasst und verwendet keine HTML-Add-Ons. Es sind auch Alt-Texte für alle Bilder vorhanden.
