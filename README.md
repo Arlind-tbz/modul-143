@@ -30,6 +30,7 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
       - [Update Server](#update-server)
       - [Domain](#domain)
       - [Backup und Restore](#backup-und-restore)
+    - [Wie werden wir das Umsetzen?](#wie-werden-wir-das-umsetzen)
   - [Umsetzen](#umsetzen)
     - [Traefik (Reverse Proxy)](#traefik-reverse-proxy)
     - [Watchtower (Update Server)](#watchtower-update-server)
@@ -37,6 +38,10 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
       - [Installation](#installation)
       - [Konfiguration](#konfiguration)
     - [Mailu (Mail Server)](#mailu-mail-server)
+      - [Installation](#installation-1)
+      - [Konfiguration](#konfiguration-1)
+    - [Backup und Restore](#backup-und-restore-1)
+      - [Rsync](#rsync)
       - [Backup-Skript](#backup-skript)
       - [Restore-Skript](#restore-skript)
   - [Testen](#testen)
@@ -630,9 +635,157 @@ Dann gehen wir zu "Persönlich > Sicherheit" (Personal > Security) und richten T
 
 ### Mailu (Mail Server)
 
-docker compose exec admin flask mailu admin admin tbz.sulejmani.xyz 'password'
-created admin user
+#### Installation
 
+Der letzte Dienst, den wir jetzt installieren, ist der Mail-Server. Ich habe mich für Mailu entschieden, da es im Vergleich zu MailCow sehr leistungsfähig ist.
+
+Mit dem Skript `prerequisite.sh` haben wir bereits alle erforderlichen Ordner erstellt. Jetzt müssen wir nur noch zwei Dateien herunterladen.
+
+Lade die Dateien [docker/mailu/docker-compose.yml](./docker/mailu/docker-compose.yml) und [docker/mailu/mailu.env](./docker/mailu/mailu.env) herunter.
+
+Bevor wir fortfahren, müssen wir jedoch einige Anpassungen vornehmen.
+
+```bash
+cd mailu
+```
+
+```bash
+wget https://raw.githubusercontent.com/Arlind-tbz/modul-143/main/docker/mailu/docker-compose.yml?token=GHSAT0AAAAAACIIHYV4HPHTC4GJEMIRUHR2ZNX44XQ
+wget https://raw.githubusercontent.com/Arlind-tbz/modul-143/main/docker/mailu/mailu.env?token=GHSAT0AAAAAACIIHYV4XCG2MCFHL7WETPRUZNX44YQ
+```
+
+Mit einem Texteditor wie Vim oder Nano können wir nun unsere Dateien anpassen. Fangen wir mit der `mailu.env`-Datei an.
+
+```bash
+vim mailu.env
+```
+
+Finde die Werte `SUBNET`, `DOMAIN`, `HOSTNAMES` und `POSTMASTER` und passe sie an, wie in den Beispielen unten gezeigt:
+
+```bash
+SUBNET=172.21.0.0/16, 172.16.0.0/16 # Nicht verändern
+DOMAIN=tbz.sulejmani.xyz # Mit deiner Domain anpassen
+HOSTNAMES=mail.tbz.sulejmani.xyz, 172.16.2.1, tbz.sulejmani.xyz # Mit deiner Domain anpassen
+POSTMASTER=admin # Nicht verändern
+```
+
+Jetzt zur `docker-compose.yml`-Datei.
+
+```bash
+vim docker-compose.yml
+```
+
+Im Container `front:` musst du die Labels anpassen, damit es mit deiner Domain in Traefik funktioniert.
+
+```yml
+  front:
+    image: ${DOCKER_ORG:-ghcr.io/mailu}/${DOCKER_PREFIX:-}nginx:${MAILU_VERSION:-2.0}
+    container_name: mailu-front
+    restart: always
+    env_file: mailu.env
+    logging:
+      driver: journald
+      options:
+        tag: mailu-front
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+      - "110:110"
+      - "995:995"
+      - "143:143"
+      - "993:993"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mail.entrypoints=http
+      - traefik.http.routers.mail.rule=Host(`mail.tbz.domain.tld`) # Mit deiner Domain anpassen
+      - traefik.http.middlewares.mail-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.mail.middlewares=mail-https-redirect
+      - traefik.http.routers.mail-secure.entrypoints=https
+      - traefik.http.routers.mail-secure.rule=Host(`mail.tbz.domain.tld`) # Mit deiner Domain anpassen
+      - traefik.http.routers.mail-secure.tls=true
+      - traefik.http.routers.mail-secure.service=mail
+      - traefik.http.services.mail.loadbalancer.server.port=80
+      - traefik.docker.network=proxy
+    networks:
+      proxy:
+        ipv4_address: 172.16.2.1
+      mail:
+    volumes:
+      - "./mailu/certs:/certs"
+      - "./mailu/overrides/nginx:/overrides:ro"
+```
+
+Sobald wir das erledigt haben, können wir die Umgebung starten und den Admin-Benutzer erstellen.
+
+```bash
+docker compose up -d
+```
+
+Jetzt können wir das testen, indem wir zu deiner Domain gehen. Bevor wir fortfahren, müssen wir jedoch den Admin-Benutzer erstellen. In Mailu erfolgt dies über einen `docker compose execute`-Befehl. Wir erstellen einen Admin-Benutzer mit dem Namen `admin@tbz.sulejmani.xyz` und dem Passwort "password".
+
+```bash
+docker compose exec admin flask mailu admin admin tbz.sulejmani.xyz 'password'
+```
+
+```
+created admin user
+```
+
+Jetzt haben wir den Admin-Benutzer erstellt und können uns im Webinterface für das Admin-Portal anmelden.
+
+![Mailu-Anmelden-Admin](./src/Mailu-Anmelden-Admin.png)
+
+#### Konfiguration
+
+##### Einstellung des Anzeigenamens und Deaktivierung des Spamfilters
+
+Im Admin-Interface können wir jetzt den Spamfilter deaktivieren und einen Anzeigenamen festlegen.
+
+**Warum deaktivieren wir den Spamfilter?**
+
+Wir deaktivieren den Spamfilter, um die Systemleistung zu schonen. Der Hauptgrund dafür ist jedoch, dass wir ihn nicht benötigen. Unsere Mail-Instanz ist lokal und dient nur für interne Kommunikation. Wir können keine E-Mails von extern empfangen oder nach außen senden. Dies ist eine spezielle Anforderung von Sota GmbH für diesen Anwendungsfall.
+
+![Mailu-disable-span](./src/Mailu-disable-spam.png)
+
+Um den Spamfilter zu deaktivieren, entfernen wir einfach das Häkchen.
+
+Währenddessen können wir oben auch unseren Anzeigenamen festlegen.
+
+##### Ändern des Admin-Passworts
+
+![Mailu-Password-anpassen](./src/Mailu-Password-update.png)
+
+Unter `My Account > Update password` können wir unser Passwort ändern.
+
+##### Erstellung von Benutzern
+
+Basierend auf der Liste von OwnCloud werde ich für jeden Benutzer eine E-Mail-Adresse erstellen:
+
+| Benutzername | Passwort | E-Mail                  |
+| ------------ | -------- | ----------------------- |
+| user1        | password | user1@tbz.sulejmani.xyz |
+| user2        | password | user2@tbz.sulejmani.xyz |
+| user3        | password | user3@tbz.sulejmani.xyz |
+| user4        | password | user4@tbz.sulejmani.xyz |
+| user5        | password | user5@tbz.sulejmani.xyz |
+| user6        | password | user6@tbz.sulejmani.xyz |
+
+Die Passwörter sind sehr einfach, da jeder Benutzer sein Passwort nach der Erstellung ändern muss.
+
+![Mailu-Navigation-to-users](./src/Mailu-Navigation-to-users.png)
+
+Um Benutzer zu erstellen, gehen wir zu `Administration > Mail Domains` und wählen unsere Domain aus. Dann können wir weitere Benutzer hinzufügen und auf das Briefsymbol klicken, um zur Benutzerliste zu gelangen.
+
+![mailu-add-users](./src/mailu-add-users.png)
+
+Oben rechts können wir neue Benutzer erstellen.
+
+![Mailu-Example-user1](./src/Mailu-Example-user1.png)
+
+Hier ist ein Beispiel, wie ich einen Benutzer erstelle. Dies habe ich für die restlichen 5 Benutzer genauso gemacht und bin zu diesem Ergebnis gekommen:
+
+![Mailu-create-user-end](./src/Mailu-create-user-end.png)
 
 ### Backup und Restore
 
