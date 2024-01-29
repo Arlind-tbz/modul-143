@@ -10,7 +10,7 @@
 
 - User-Story ist vorhanden, welche konkret einen Service beschreibt (zum Beispiel die Speicherung von Benutzerdaten).
 
-Eine detaierte [User-Story](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#fiktive-user-story) ist vorhanden.
+Eine detaillierte [User-Story](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#fiktive-user-story) ist vorhanden.
 
 - Elemente aus der GebüV, Datenschutzgesetz und BSI-IT-Grundschutz-Vorgaben sind vorhanden.
 
@@ -18,11 +18,11 @@ Es sind **keine** Datenschutzgesetze vorhanden.
 
 - Konkrete und messbare technische Anforderungen sind konzeptionell definiert - Einflussfaktoren sind auf User-Story abgestützt.
 
-Mit dem [Szenario 7: Kostenoptimierung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) habe ich versucht viele technische Daten zusammen in Verbindung zukriegen mithilfe von [Systemleistung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) und [Datenzuwachs](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung).
+Mit dem [Szenario 7: Kostenoptimierung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) habe ich versucht, viele technische Daten zusammen in Verbindung zu bringen, mithilfe von [Systemleistung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) und [Datenzuwachs](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung).
 
 - Im Datensicherungskonzept ist ersichtlich, in welcher Form (Speicherort, Datenmenge) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
 
-Im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sieht mann, dass jeden Tag um 20:00 die Backups ausgeführt werden, aber man sieht **nicht**, die Datenmenge oder Versionierung.
+Im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sieht man, dass jeden Tag um 20:00 die Backups ausgeführt werden, aber man sieht **nicht** die Datenmenge oder Versionierung.
 
 ### A2
 
