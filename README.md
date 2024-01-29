@@ -1090,9 +1090,9 @@ Um dies zu testen, habe ich alle Backup-Standorte überprüft. Ich habe Backups 
 
 ![Test-backup-hdd](./src/Test-backup-HDD.png)
 
-![Test-backup-tape](./src/Test-backup-tape.png)
+![Test-backup-tape](./src/Test-Backup-Tape.png)
 
-![Test-backup-remote](./src/Test-backup-remote.png)
+![Test-backup-remote](./src/Test-Backup-remote.png)
 
 Wie aus den Screenshots ersichtlich ist, sind alle Backups vorhanden.
 
