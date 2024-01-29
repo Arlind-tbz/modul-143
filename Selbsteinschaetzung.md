@@ -46,23 +46,17 @@ asdf
 
 ### B1 Ich kann aufgrund von technischen und betriebswirtschaftlichen Kriterien ein individualisiertes Datensicherungskonzept erstellen und auf Machbarkeit überprüfen.
 
-- Die zu sichernden Daten werden konkret anhand eines Use-Cases und mit Bezug auf unterschiedliche Services definiert und das Datensicherungskonzept auf allgemeinen Vorgaben und Empfehlungen (BSI-Handbuch) abgestützt.
+- Der gewählte Speicherort wird aus den Anforderungen gemäss dem Use-Case abgeleitet.
 
-asdf
-
-- Besonders schützenswerte Daten werden gesondert behandelt und verschlüsselt gesichert.
-
-asdf
-
-- Der optimale Speicherort wird anhand des Use-Cases und pro Service definiert.
-
-asdf
+In einer Docker-Umgebung ist es immer vorteilhaft für Systemadministratoren, Bind-Volumes zu nutzen, wie es in unserer Umgebung der Fall ist. Im [Use-Case](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) werden die erforderlichen Daten erläutert. Aus Kosteneffizienzgründen werden jedoch alle Daten im Ordner `./docker` gespeichert, wobei alle Daten verschlüsselt sind.
 
 - Die Verantwortlichkeiten sind entsprechenden Rollen zugewiesen.
 
-asdf
+Die Verantwortlichkeiten sind in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) festgelegt. Nur Systemadministratoren haben die Berechtigung, Backups zu starten, Wiederherstellungen durchzuführen und Konfigurationen in OwnCloud und Mailu zu ändern.
 
-- Qualitätssicherungsmerkmale sind ausgearbeitet.
+- Qualitätssicherungsmerkmale sind thematisiert.
+
+Die Qualitätssicherungsmerkmale werden in den [Testfällen](https://github.com/Arlind-tbz/modul-143#testen) behandelt.
 
 ## BERDARFSERMITTLUNG
 
