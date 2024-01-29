@@ -1023,26 +1023,43 @@ Nach Abschluss des Skripts sollten alle Container wiederhergestellt sein, und Si
 
 ## Testen
 
-### Szenario 1: Regelmässige Datensicherungen
+### Szenario 1: Regelmäßige Datensicherungen
 
-- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sicherzustellen, dass diese ordnungsgemäss gespeichert wird.
+- Unser Ziel ist es, täglich mindestens eine Datensicherung durchzuführen und sicherzustellen, dass diese ordnungsgemäß gespeichert wird.
 
 Durchgeführt von Arlind Sulejmani
 
-| Testfall: 29.01.2024    | Anforderung: Regelmässige Datensicherungen                                                                                                                                    |
-| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Erwartetes Ergebnis:    | Wir sollten regelmässig Datensicherungen durchführen.                                                                                                                         |
-| Tatsächliches Ergebnis: | Wir führen täglich eine Backup-Routine durch.                                                                                                                                 |
-| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups auszuführen <br> 2. Überprüfung von Ordnern und Logs, um sicherzustellen, dass die Backups ordnungsgemäss durchgeführt wurden. |
+| Testfall: 29.01.2024    | Anforderung: Regelmäßige Datensicherungen                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Erwartetes Ergebnis:    | Regelmäßige Datensicherungen sollten durchgeführt werden.                                                                                                                      |
+| Tatsächliches Ergebnis: | Täglich wird eine Backup-Routine ausgeführt.                                                                                                                                   |
+| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups durchzuführen <br> 2. Überprüfung von Ordnern und Logs, um sicherzustellen, dass die Backups ordnungsgemäß durchgeführt wurden. |
 
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
 
 #### Beweise
 
+##### Crontab
+
+Um dies zu testen, habe ich zuerst den crontab vom Benutzer "root" überprüft:
+
+```bash
+sudo su -  # Wechseln zu "root"
+cat /var/spool/cron/crontabs/root
+```
+
+![Test-Crontab](./src/Test-crontab.png)
+
+##### Logs
+
+Um sicherzustellen, dass die Backups tatsächlich durchgeführt werden, habe ich die Logs überprüft. Ich habe konfiguriert, dass die Logs in das Verzeichnis `/var/log/tbz` gespeichert werden.
+
+![Test-logs](./src/Test-logs.png)
+
 ### Szenario 2: Mehrere Backup-Standorte
 
-- Wir streben an, unsere Backups gemäss den Prinzipien des 3-2-1-Backups sicher zu speichern:
+- Wir streben an, unsere Backups gemäß den Prinzipien des 3-2-1-Backups sicher zu speichern:
   - 3 Kopien
   - 2 auf verschiedenen Medien
   - 1 in der Cloud
@@ -1060,6 +1077,18 @@ Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 
 #### Beweise
 
+Um dies zu testen, habe ich alle Backup-Standorte überprüft. Ich habe Backups auf einer HDD, einem Tape und einem Remote-Server erstellt. Obwohl der Remote-Server auf meiner eigenen Maschine simuliert wurde, ist das Skript so konfiguriert, dass es einfach auf eine Cloud-Instanz umgestellt werden kann.
+
+![Test-backup-locations](./src/Test-backup-locations.png)
+
+![Test-backup-hdd](./src/Test-backup-HDD.png)
+
+![Test-backup-tape](./src/Test-backup-tape.png)
+
+![Test-backup-remote](./src/Test-backup-remote.png)
+
+Wie aus den Screenshots ersichtlich ist, sind alle Backups vorhanden.
+
 ### Szenario 3: Verschlüsselung
 
 - Wir legen Wert darauf, dass E-Mails und Daten sicher verschlüsselt werden. Zudem sollte unsere gesamte Umgebung vollständig über HTTPS gesichert sein.
@@ -1068,8 +1097,8 @@ Durchgeführt von Arlind Sulejmani
 
 | Testfall: 29.01.2024    | Verschlüsselung                                                                                                                                                                           |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Erwartetes Ergebnis:    | Alles sollte sicher verschlüsselt sein, einschliesslich der Datenübertragung.                                                                                                             |
-| Tatsächliches Ergebnis: | Alles ist sicher verschlüsselt, einschliesslich der Datenübertragung.                                                                                                                     |
+| Erwartetes Ergebnis:    | Alles sollte sicher verschlüsselt sein, einschließlich der Datenübertragung.                                                                                                              |
+| Tatsächliches Ergebnis: | Alles ist sicher verschlüsselt, einschließlich der Datenübertragung.                                                                                                                      |
 | Testschritte            | Überprüfung des HTTPS-Datenverkehrs, Analyse von Containerdaten vom Hostsystem aus, Überprüfung des Backup-Skripts, um sicherzustellen, dass SSH für die Datenübertragung verwendet wird. |
 
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
@@ -1077,13 +1106,35 @@ Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 
 #### Beweise
 
-### Szenario 4: Regelmässige Updates
+##### HTTPS-Datenverkehr
+
+Um dies zu testen, habe ich zuerst jede Website besucht und überprüft, ob die Verbindung über ein gültiges SSL-Zertifikat hergestellt wird.
+
+![Test-ssl-traefik](./src/Test-ssl-traefik.png)
+
+![Test-ssl-mailu](./src/Test-ssl-mailu.png)
+
+![Test-ssl-owncloud](./src/Test-ssl-owncloud.png)
+
+##### Backup-Skript
+
+Um zu überprüfen, ob mein Backup-Skript die Daten sicher überträgt, habe ich das Skript analysiert, um sicherzustellen, dass SSH für die Datenübertragung verwendet wird.
+
+![Test-ssh-filetranser](./src/Test-ssh-filetransfer.png)
+
+##### Docker Volumes
+
+Es ist wichtig sicherzustellen, dass die Daten in den Docker-Volumes sicher gespeichert werden. Ich habe dies überprüft, indem ich als Root-Benutzer zum Pfad eines Benutzers gewechselt bin und die Datei mit "cat" ausgelesen habe. Das Ergebnis war eine verschlüsselte Datei.
+
+![Test-OwnCloud-docker-volumes](./src/Test-OwnCloud-docker-volumes.png)
+
+### Szenario 4: Regelmäßige Updates
 
 - Wir planen, unsere Systeme immer auf dem neuesten Stand zu halten, indem wir jeden Freitagabend um 20:00 Uhr System-Upgrades durchführen.
 
 Durchgeführt von Arlind Sulejmani
 
-| Testfall: 29.01.2024    | Regelmässige Updates                                                       |
+| Testfall: 29.01.2024    | Regelmäßige Updates                                                        |
 | ----------------------- | -------------------------------------------------------------------------- |
 | Erwartetes Ergebnis:    | Jeden Freitagabend um 20:00 Uhr sollten Systemupdates durchgeführt werden. |
 | Tatsächliches Ergebnis: | Jeden Freitagabend um 20:00 Uhr werden Systemupdates durchgeführt.         |
@@ -1094,9 +1145,17 @@ Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 
 #### Beweise
 
+Um unsere Updates durchzuführen, verwenden wir Watchtower. Dies ist sehr einfach zu testen. Zuerst habe ich die Umgebung in meiner "docker-compose.yml"-Datei überprüft.
+
+![Test-watchtower-schedule](./src/Test-Watchtower-schedule.png)
+
+Anschließend habe ich überprüft, ob dies auch tatsächlich funktioniert, indem ich die Logs überprüft habe. Im folgenden Bild ist zu sehen, dass am Freitag um 20:00 Uhr in unserer Zeitzone ein Upgrade geplant war.
+
+![Test-watchtower-logs](./src/Test-Watchtower-logs.png)
+
 ### Szenario 5: Mail-Server
 
-- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschliesslich für die interne Kommunikation.
+- Ein funktionsfähiger Mail-Server ist für uns von Bedeutung, jedoch ausschließlich für die interne Kommunikation.
 
 Durchgeführt von Arlind Sulejmani
 
@@ -1111,9 +1170,21 @@ Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 
 #### Beweise
 
+##### Mails werden intern versendet
+
+Um dies zu testen, habe ich vom Adminbenutzer eine Mail an den Benutzer "user1@tbz.sulejmani.xyz" gesendet, und diese ist problemlos angekommen.
+
+![Test-mail-intern](./src/Test-Mail-intern.png)
+
+##### Mails werden nach außen blockiert
+
+Ich habe getestet, ob Mails erfolgreich nach außen versendet werden können, indem ich eine E-Mail von meinem Adminbenutzer an meine private Gmail-Adresse geschickt habe. Diese E-Mail ist nicht angekommen, wie im Use-Case beschrieben.
+
+![Test-mail-extern](./src/Test-Mail-extern.png)
+
 ### Szenario 6: Dokumentation
 
-- Wir benötigen eine umfassende Dokumentation, die erläutert, wie Sie alle Aufgaben ausgeführt haben, und wie wir alles nutzen können, einschliesslich der Synchronisierung und gemeinsamen Nutzung von Dateien sowie des E-Mail-Programms.
+- Wir benötigen eine umfassende Dokumentation, die erläutert, wie Sie alle Aufgaben ausgeführt haben, und wie wir alles nutzen können, einschließlich der Synchronisierung und gemeinsamen Nutzung von Dateien sowie des E-Mail-Programms.
 
 Durchgeführt von Arlind Sulejmani
 
@@ -1126,8 +1197,14 @@ Durchgeführt von Arlind Sulejmani
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
 
-# Reflektion
+### Szenario 7: Kostenoptimierung
 
-## Speicherkapazität
+- Unsere Präferenz liegt auf kosteneffizienten Lösungen. Das schließt die Verwendung von Zertifikaten von Let's Encrypt, zertifikatslosen Programmen und stromsparenden Anwendungen mit ein.
 
-Die Speicherkapazität ist für den zukünftigen Speicherzuwachs mit konkreten Werten berechnet (Beispiel für Berechnung mit Tool: Backup Capacity Calculator - WintelGuy.com)
+#### Beweise
+
+Um zu zeigen, dass unsere Lösung effizient ist, zeige ich die Systemleistung auf meinem Laptop, der die Aufgaben mühelos bewältigt. Insgesamt werden nur 2 GiB von 8 GiB RAM und weniger als 5% CPU-Auslastung benötigt.
+
+Diese aktuelle Umgebung könnte sogar auf einem Raspberry Pi betrieben werden, solange ausreichend Speicher vorhanden ist.
+
+![Test-top](./src/Test-top.png)
