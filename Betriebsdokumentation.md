@@ -29,6 +29,14 @@ Mit Hilfe von Watchtower führen wir jeden Freitagabend Updates an unseren Conta
 
 Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Protokolle sind im Verzeichnis `/var/log/tbz` zu finden.
 
+### Datenzuwachs
+
+In unserer Umgebung haben wir insgesamt 7 Benutzer, davon 6 Standardbenutzer und einen Administrator. Jeder dieser Benutzer hat Zugriff auf 2GB Daten - 1GB für die E-Mail und 1GB für OwnCloud. Das bedeutet, dass wir insgesamt 14GB für alle 7 Benutzer benötigen. Aufgrund unserer inkrementellen Backups können wir diese Datenmenge verwalten, ohne regelmässig alte Backups löschen zu müssen. Dies ermöglicht uns, für unsere Festplatten (HDD), Bänder (Tape) und die Cloud-Umgebung eine ähnliche Speichergrösse zu verwenden, beispielsweise 100GB.
+
+Wenn wir bereits 100GB für unsere Docker-Umgebung und zusätzlich jeweils 100GB für HDD, Tape und die Remote-Speicher zur Verfügung haben, könnten wir theoretisch bis zu 50 Benutzer unterstützen, die ihre OwnCloud- und Mail-Instanzen voll ausnutzen. Es ist jedoch wahrscheinlicher, dass jeder Benutzer nur etwa 20% seines zugewiesenen Speichers benötigt. In diesem Fall könnten wir mit 100GB Datenplatz etwa 500 Benutzer bedienen.
+
+Daher erscheint es sehr realistisch, dass 100GB ausreichen werden, um die Anforderungen dieser Firma an Benutzerdaten zu erfüllen.
+
 ## Backup
 
 Jeden Freitag um 17:00 Uhr werden Backups gemäss einem Cronjob erstellt.
