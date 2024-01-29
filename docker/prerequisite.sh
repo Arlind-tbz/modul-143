@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p owncloud/data traefik/data owncloud/mysql owncloud/redis
+mkdir -p owncloud/data traefik/data owncloud/mysql owncloud/redis mailu/certs mailu/data mailu/dkim mailu/filter mailu/mail mailu/mailqueue mailu/overrides mailu/redis mailu/webmail
 
 docker network create --driver bridge --gateway 172.16.0.1 --ip-range 172.16.0.0/24 --subnet 172.16.0.0/16 proxy
 

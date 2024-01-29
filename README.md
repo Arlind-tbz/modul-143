@@ -34,6 +34,8 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
     - [Traefik (Reverse Proxy)](#traefik-reverse-proxy)
     - [Watchtower (Update Server)](#watchtower-update-server)
     - [OwnCloud (Share und Sync Server)](#owncloud-share-und-sync-server)
+      - [Installation](#installation)
+      - [Konfiguration](#konfiguration)
     - [Mailu (Mail Server)](#mailu-mail-server)
       - [Backup-Skript](#backup-skript)
       - [Restore-Skript](#restore-skript)
@@ -168,7 +170,7 @@ Normalerweise würden wir den Ordner manuell erstellen, aber ich habe ein Skript
 ```bash
 #!/bin/bash
 
-mkdir -p owncloud/data traefik/data owncloud/mysql owncloud/redis
+mkdir -p owncloud/data traefik/data owncloud/mysql owncloud/redis mailu/certs mailu/data mailu/dkim mailu/filter mailu/mail mailu/mailqueue mailu/overrides mailu/redis mailu/webmail
 
 docker network create --driver bridge --gateway 172.16.0.1 --ip-range 172.16.0.0/24 --subnet 172.16.0.0/16 proxy
 
@@ -402,7 +404,9 @@ Wir sehen, dass alles funktioniert hat, wenn wir keine Fehlermeldungen sehen und
 
 ### OwnCloud (Share und Sync Server)
 
-Mit dem letztem Script haben wir alle nötigen Ordner schon erstellt. Trotzdem müssen wir jetzt aber zu `./docker/owncloud` und werden dort 2 Dateien erstellen. Einmal wäre das `.env` und einmal `docker-compose.yml`
+#### Installation
+
+Nachdem wir bereits alle notwendigen Ordner mit dem vorherigen Skript erstellt haben, müssen wir jetzt zum Verzeichnis `./docker/owncloud` wechseln und dort zwei Dateien erstellen: `.env` und `docker-compose.yml`.
 
 ```bash
 cd owncloud
@@ -412,7 +416,7 @@ cd owncloud
 touch .env docker-compose.yml
 ```
 
-In der Datei `docker-compose.yml` werden wir diesen Inhalt hinzufügen:
+In der Datei `docker-compose.yml` fügen wir folgenden Inhalt ein:
 
 ```yml
 version: "3"
@@ -429,14 +433,14 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.owncloud.entrypoints=http
-      - traefik.http.routers.owncloud.rule=Host(`owncloud.tbz.domain.tld`) # ersetzen mit deiner Domain
+      - traefik.http.routers.owncloud.rule=Host(`owncloud.tbz.domain.tld`) # Hier mit deiner eigenen Domain ersetzen
       - traefik.http.middlewares.owncloud-https-redirect.redirectscheme.scheme=https
       - traefik.http.routers.owncloud.middlewares=owncloud-https-redirect
       - traefik.http.routers.owncloud-secure.entrypoints=https
-      - traefik.http.routers.owncloud-secure.rule=Host(`owncloud.tbz.domain.tld`) # ersetzen mit deiner Domain
+      - traefik.http.routers.owncloud-secure.rule=Host(`owncloud.tbz.domain.tld`) # Hier mit deiner eigenen Domain ersetzen
       - traefik.http.routers.owncloud-secure.tls=true
       - traefik.http.routers.owncloud-secure.service=owncloud
-      - traefik.http.services.owncloud.loadbalancer.server.port=8080 # Port 8080 vom Container weiterleiten zu Port 80 auf Treafik
+      - traefik.http.services.owncloud.loadbalancer.server.port=8080 # Port 8080 vom Container auf Port 80 von Traefik weiterleiten
       - traefik.docker.network=proxy
     depends_on: # OwnCloud startet erst, wenn mariadb und redis funktionieren
       - mariadb
@@ -462,8 +466,8 @@ services:
     volumes:
       - ./data:/mnt/data
 
-  mariadb: # Standart MariaDB Umgebung für OwnCloud
-    image: mariadb:10.11 # minimum required ownCloud version is 10.9
+  mariadb: # Standard MariaDB Umgebung für OwnCloud
+    image: mariadb:10.11 # Mindestens erforderliche ownCloud-Version ist 10.9
     container_name: owncloud-mariadb
     networks:
       proxy:
@@ -484,7 +488,7 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
 
-  redis: # Standart redis Umgebung für OwnCloud
+  redis: # Standard Redis-Umgebung für OwnCloud
     image: redis:6
     container_name: owncloud-redis
     networks:
@@ -500,29 +504,119 @@ services:
     volumes:
       - ./redis:/data
 
-networks: # Proxy network, damit Traefik funktioniert
+networks: # Proxy-Netzwerk, damit Traefik funktioniert
   proxy:
     external: true
 ```
 
-Und wir werden dies in der `.env` einfügen.
+In die `.env` Datei fügen wir dies ein:
 
 ```bash
-OWNCLOUD_VERSION=latest # nicht verändern.
-OWNCLOUD_DOMAIN=localhost:8080 # anpassen mit deiner Domain
-OWNCLOUD_TRUSTED_DOMAINS=localhost:8080 # anpassen mit deiner Domain
-ADMIN_USERNAME=admin # nicht verändern
-ADMIN_PASSWORD=admin # nicht verändern
-HTTP_PORT=8080 # nicht verändern
+OWNCLOUD_VERSION=latest # nicht ändern
+OWNCLOUD_DOMAIN=localhost:8080 # Mit deiner eigenen Domain anpassen
+OWNCLOUD_TRUSTED_DOMAINS=localhost:8080 # Mit deiner eigenen Domain anpassen
+ADMIN_USERNAME=admin # nicht ändern
+ADMIN_PASSWORD=admin # nicht ändern
+HTTP_PORT=8080 # nicht ändern
 ```
 
-Sobald wir dies einfügt habe könne wir die Umgebung starten und auf owncloud.tbz.domain.tld gehen, in meinem fall owncloud.tbz.sulejmani.xyz
+Sobald dies erledigt ist, können wir die Umgebung starten und zu `owncloud.tbz.domain.tld` gehen, in meinem Fall `owncloud.tbz.sulejmani.xyz`.
 
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
+#### Konfiguration
 
+##### Admin-Passwort ändern
+
+Jetzt befinden wir uns im OwnCloud-Webinterface. Falls wir die Traefik-Tags richtig gesetzt haben, werden wir über HTTPS darauf zugreifen können.
+
+![OwnCloud-Test](./src/OwnCloud-Test.png)
+
+Falls alles wie erwartet funktioniert, können wir uns jetzt anmelden. Verwenden Sie die Anmeldedaten aus der `.env`-Datei. In meinem Fall:
+
+- **Benutzername**: admin
+- **Passwort**: admin
+
+Nachdem wir angemeldet sind, sollten wir das Passwort jedoch sofort ändern.
+
+Klicken Sie dazu oben rechts auf Ihren Benutzernamen und wählen Sie "Benutzer".
+
+![OwnCloud-Test](./src/OwnCloud-Users.png)
+
+Sobald wir hier sind, sehen wir unseren Admin-Benutzer und ändern sein Passwort.
+
+![OwnCloud-Change-Admin-PW](./src/OwnCloud-Change-Admin-Password.png)
+
+##### Benutzer erstellen
+
+Die Benutzer können im selben Tab erstellt werden.
+
+Klicken Sie erneut oben rechts auf Ihren Benutzernamen und wählen Sie "Benutzer".
+
+![OwnCloud-Test](./src/OwnCloud-Users.png)
+
+Sobald wir hier sind, sehen wir unseren Admin-Benutzer und können oben neue Benutzer erstellen.
+
+![OwnCloud-Create-Users](./src/OwnCloud-Create-Users.png)
+
+Ich werde 6 Benutzer erstellen:
+
+| Benutzername | Passwort | E-Mail                  | Gruppen |
+| ------------ | -------- | ----------------------- | ------- |
+| user1        | password | user1@tbz.sulejmani.xyz | Users   |
+| user2        | password | user2@tbz.sulejmani.xyz | Users   |
+| user3        | password | user3@tbz.sulejmani.xyz | Users   |
+| user4        | password | user4@tbz.sulejmani.xyz | Users   |
+| user5        | password | user5@tbz.sulejmani.xyz | Users   |
+| user6        | password | user6@tbz.sulejmani.xyz | Users   |
+
+![OwnCloud-User-List](./src/OwnCloud-User-List.png)
+
+##### Server-seitige Verschlüsselung
+
+Um sicherzustellen, dass unsere Daten zuverlässig gespeichert werden, benötigen wir eine zuverlässige serverseitige Verschlüsselung. Dies bedeutet, dass alle unsere Dateien im Hintergrund verschlüsselt gespeichert werden. Benutzer müssen nichts einstellen, da alles im Backend erfolgt. Dies erleichtert auch die zukünftige Sicherung der Daten, da sie bereits verschlüsselt sind.
+
+Um dies einzustellen, navigieren wir zuerst zu "Einstellungen" (Settings) und dann zu "Verwaltung > Verschlüsselung" (Admin > Encryption).
+
+![OwnCloud-Settings](./src/OwnCloud-Settings.png)
+
+Dort aktivieren wir die serverseitige Verschlüsselung.
+
+![OwnCloud-Enable-Server-Side-Encryption](./src/OwnCloud-Enable-Server-Side-Encryption.png)
+
+Das Aktivieren des Häkchens reicht jedoch nicht aus. Wir müssen auch das Modul aktivieren. Dies kann unter "Verwaltung > Apps" (Admin > Apps) erfolgen.
+
+![OwnCloud-Nav-Apps](./src/OwnCloud-Nav-Admin-Apps.png)
+
+Hier suchen und aktivieren wir das "Default encryption module".
+
+![OwnCloud-Test-Encryption](./src/OwnCloud-Test-Encryption.png)
+
+Jetzt sehen wir unter "Verwaltung > Verschlüsselung" (Admin > Encryption), dass das "Default encryption module" verwendet wird.
+
+##### 2FA für den Admin-Benutzer
+
+Unser Admin-Benutzer ist besonders sicherheitskritisch, daher reicht eine einfache Ein-Faktor-Authentifizierung (1FA) nicht aus. Daher installieren wir ein Add-On, um die Zwei-Faktor-Authentifizierung (2FA) zu aktivieren, insbesondere die TOTP-Methode. TOTP generiert alle 30 Sekunden einen 6-stelligen Code basierend auf einem "Passwort".
+
+Zuerst gehen wir oben links zu "Einstellungen" (Settings) und dann zum "Markt" (Market).
+
+Sobald wir dort sind, suchen wir nach einem Add-On namens "2-Factor Authentication".
+
+![OwnCloud-Find-2FA](./src/OwnCloud-Find-2FA.png)
+
+Sobald wir es gefunden haben, klicken wir darauf und installieren es.
+
+![OwnCloud-Install-2FA](./src/OwnCloud-Install-2FA.png)
+
+Jetzt haben wir es installiert, müssen es aber noch einrichten. Dafür gehen wir zurück zu "Einstellungen" (Settings) oben rechts.
+
+![OwnCloud-Settings](./src/OwnCloud-Settings.png)
+
+Dann gehen wir zu "Persönlich > Sicherheit" (Personal > Security) und richten TOTP ein, verwenden Sie dazu einen Passwort-Manager Ihrer Wahl, in meinem Fall Proton Pass.
+
+![OwnCloud-TOTP-Security](./src/OwnCloud-TOTP-Security.png)
 
 ### Mailu (Mail Server)
 
