@@ -171,7 +171,7 @@ In unserem Datensicherungskonzept nutzen wir vier Docker-Stacks, wobei einer dav
 
 Mit Hilfe von Watchtower führen wir jeden Freitagabend Updates an unseren Containern durch.
 
-Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Protokolle sind im Verzeichnis `/var/log/tbz` zu finden.
+Unsere Backups werden täglich um 20:00 Uhr durchgeführt, gesteuert durch ein Bash-Skript. Weitere Details zum Bash-Skript finden Sie in den folgenden Abschnitten. Es ist wichtig zu erwähnen, dass unser Bash-Skript durch einen Cronjob gesteuert wird und sowohl lokale HDD- als auch Tape-Backups sowie Remote-Backups durchführt. Alle Logs sind im Verzeichnis `/var/log/tbz` zu finden.
 
 ## Umsetzen
 
@@ -1029,14 +1029,16 @@ Nach Abschluss des Skripts sollten alle Container wiederhergestellt sein, und Si
 
 Durchgeführt von Arlind Sulejmani
 
-| Testfall: 29.01.2024    | Anforderung: Regelmässige Datensicherungen                                                                                                                                           |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Erwartetes Ergebnis:    | Wir sollten regelmässig Datensicherungen durchführen.                                                                                                                                |
-| Tatsächliches Ergebnis: | Wir führen täglich eine Backup-Routine durch.                                                                                                                                        |
-| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups auszuführen <br> 2. Überprüfung von Ordnern und Protokollen, um sicherzustellen, dass die Backups ordnungsgemäss durchgeführt wurden. |
+| Testfall: 29.01.2024    | Anforderung: Regelmässige Datensicherungen                                                                                                                                    |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Erwartetes Ergebnis:    | Wir sollten regelmässig Datensicherungen durchführen.                                                                                                                         |
+| Tatsächliches Ergebnis: | Wir führen täglich eine Backup-Routine durch.                                                                                                                                 |
+| Testschritte            | 1. Anpassung des Cronjobs, um tägliche Backups auszuführen <br> 2. Überprüfung von Ordnern und Logs, um sicherzustellen, dass die Backups ordnungsgemäss durchgeführt wurden. |
 
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
+
+#### Beweise
 
 ### Szenario 2: Mehrere Backup-Standorte
 
@@ -1056,6 +1058,8 @@ Durchgeführt von Arlind Sulejmani
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
 
+#### Beweise
+
 ### Szenario 3: Verschlüsselung
 
 - Wir legen Wert darauf, dass E-Mails und Daten sicher verschlüsselt werden. Zudem sollte unsere gesamte Umgebung vollständig über HTTPS gesichert sein.
@@ -1071,6 +1075,8 @@ Durchgeführt von Arlind Sulejmani
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
 
+#### Beweise
+
 ### Szenario 4: Regelmässige Updates
 
 - Wir planen, unsere Systeme immer auf dem neuesten Stand zu halten, indem wir jeden Freitagabend um 20:00 Uhr System-Upgrades durchführen.
@@ -1081,10 +1087,12 @@ Durchgeführt von Arlind Sulejmani
 | ----------------------- | -------------------------------------------------------------------------- |
 | Erwartetes Ergebnis:    | Jeden Freitagabend um 20:00 Uhr sollten Systemupdates durchgeführt werden. |
 | Tatsächliches Ergebnis: | Jeden Freitagabend um 20:00 Uhr werden Systemupdates durchgeführt.         |
-| Testschritte            | Analyse des Watchtower-Containers und Überprüfung der Protokolle.          |
+| Testschritte            | Analyse des Watchtower-Containers und Überprüfung der Logs.                |
 
 Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
+
+#### Beweise
 
 ### Szenario 5: Mail-Server
 
@@ -1098,10 +1106,10 @@ Durchgeführt von Arlind Sulejmani
 | Tatsächliches Ergebnis: | Es existiert ein sicherer Mail-Server, der nur interne Kommunikation erlaubt.                                |
 | Testschritte            | Besuch von `mail.tbz.sulejmani.xyz`, Versenden interner E-Mails und Versuch des Versendens externer E-Mails. |
 
-Stimmt
-
- das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
+Stimmt das tatsächliche Ergebnis mit dem erwarteten Ergebnis überein?
 - [X] Ja
+
+#### Beweise
 
 ### Szenario 6: Dokumentation
 
