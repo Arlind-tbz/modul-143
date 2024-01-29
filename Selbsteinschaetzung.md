@@ -119,18 +119,17 @@ asdf
 asdf
 
 ### D3 Ich kann eine vollständige Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen, welche die Konfiguration sowie die Funktionalität dazu nachvollziehbar abbildet. Ich kann eine verständliche Dokumentation einer Sicherungs- und Wiederherstellungsprozedur erstellen.
+- Die Anleitung informiert sowohl den Benutzer als auch den Systemadministrator über alle relevanten Parameter für die Datensicherung.
 
-- Der Benutzer sowie der Systemadministrator werden durch die Anleitung über alle Parameter, welche für die Datensicherung relevant sind, informiert.
+In meiner [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) und im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sollten alle [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story)) abgedeckt sein, und alle Schritte sind nachvollziehbar.
 
-asdf
+- Es werden klare Informationen bereitgestellt, unter welchen Bedingungen die Datensicherung gewährleistet ist.
 
-- Der Benutzer erhält konkrete Informationen, unter welchen Voraussetzungen die Datensicherung gewährleistet werden kann.
+Benutzer und Systemadministratoren können aufgrund meiner [Dokumentation](https://github.com/Arlind-tbz/modul-143#hauptteil---aufsetzen-der-umgebung) (nicht der Betriebsdokumentation) und [Testfällen](https://github.com/Arlind-tbz/modul-143#testen) sicherstellen, ob die Informationen zuverlässig gesichert werden.
 
-asdf
+- Der gesamte Prozess ist in einer visuellen Darstellung veranschaulicht.
 
-- Der Prozess ist visualisiert.
-
-asdf
+Der Prozess ist im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) visuell dargestellt.
 
 ## SYSTEM- UND BETRIEBSDOKUMENTATION
 
@@ -187,3 +186,5 @@ asdf
 asdf
 
 - Risiko-Analyse der ausgearbeiteten Backup- und Restore-Lösung
+
+asdf
