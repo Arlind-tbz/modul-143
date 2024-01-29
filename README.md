@@ -45,14 +45,19 @@ Willkommen zu meinem Repostiory zum "Modul 143 - Backup- und Restore-Systeme imp
       - [Backup-Skript](#backup-skript)
       - [Restore-Skript](#restore-skript)
   - [Testen](#testen)
-    - [Szenario 1: Regelmässige Datensicherungen](#szenario-1-regelmässige-datensicherungen-1)
+    - [Szenario 1: Regelmäßige Datensicherungen](#szenario-1-regelmäßige-datensicherungen)
+      - [Beweise](#beweise)
     - [Szenario 2: Mehrere Backup-Standorte](#szenario-2-mehrere-backup-standorte-1)
+      - [Beweise](#beweise-1)
     - [Szenario 3: Verschlüsselung](#szenario-3-verschlüsselung-1)
-    - [Szenario 4: Regelmässige Updates](#szenario-4-regelmässige-updates-1)
+      - [Beweise](#beweise-2)
+    - [Szenario 4: Regelmäßige Updates](#szenario-4-regelmäßige-updates)
+      - [Beweise](#beweise-3)
     - [Szenario 5: Mail-Server](#szenario-5-mail-server-1)
+      - [Beweise](#beweise-4)
     - [Szenario 6: Dokumentation](#szenario-6-dokumentation-1)
-- [Reflektion](#reflektion)
-  - [Speicherkapazität](#speicherkapazität)
+    - [Szenario 7: Kostenoptimierung](#szenario-7-kostenoptimierung-1)
+      - [Beweise](#beweise-5)
 
 
 # Einleitung
