@@ -630,6 +630,8 @@ Dann gehen wir zu "Persönlich > Sicherheit" (Personal > Security) und richten T
 
 ### Mailu (Mail Server)
 
+docker compose exec admin flask mailu admin admin tbz.sulejmani.xyz 'password'
+created admin user
 
 
 ### Backup und Restore
