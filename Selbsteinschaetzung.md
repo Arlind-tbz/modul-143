@@ -22,7 +22,7 @@ Mit dem [Szenario 7: Kostenoptimierung](https://github.com/Arlind-tbz/modul-143?
 
 - Im Datensicherungskonzept ist ersichtlich, in welcher Form (Speicherort, Datenmenge) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
 
-Im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sieht man, dass jeden Tag um 20:00 die Backups ausgeführt werden, aber man sieht **nicht** die Datenmenge oder Versionierung.
+Im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sieht man, dass jeden Tag um 20:00 die Backups ausgeführt werden und man sieht die Datenmenge.
 
 ### A2
 

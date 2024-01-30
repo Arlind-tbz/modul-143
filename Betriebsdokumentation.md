@@ -24,7 +24,7 @@ Diese Betriebsdokumentation bietet einen umfassenden Überblick über unsere Bac
 
 ## Datensicherungskonzept
 
-![Datensicherungskonzept](/src/Datensicherungskonzept.drawio.png)
+![Datensicherungskonzept](./src/Datensicherungskonzept.svg)
 
 In unserem Datensicherungskonzept nutzen wir vier Docker-Stacks, wobei einer davon ein Proxy ist. Durch unseren Proxy ist der einzige offene Port Port 80 und 443, wobei Port 80 ausschliesslich für die Weiterleitung zum Port 443 verwendet wird. Auf diese Weise stellen wir sicher, dass alle Kommunikation verschlüsselt ist. Dies bietet einen erheblichen Vorteil, da unsere Mailserver nur intern kommunizieren. Somit ist es praktisch unmöglich, dass wir über Mailangriffe gefährdet werden, da unsere externe Kommunikation praktisch nicht existiert. Auf diese Weise gewährleisten wir, dass unsere Kommunikation sicher ist.
 
