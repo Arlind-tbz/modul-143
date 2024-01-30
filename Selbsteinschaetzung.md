@@ -18,7 +18,7 @@ Es sind **keine** Datenschutzgesetze vorhanden.
 
 - Konkrete und messbare technische Anforderungen sind konzeptionell definiert - Einflussfaktoren sind auf User-Story abgestützt.
 
-Mit dem [Szenario 7: Kostenoptimierung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) habe ich versucht, viele technische Daten zusammen in Verbindung zu bringen, mithilfe von [Systemleistung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) und [Datenzuwachs](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung).
+Mit dem [Szenario 7: Kostenoptimierung](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-7-kostenoptimierung) habe ich versucht, viele technische Daten zusammen in Verbindung zu bringen, mithilfe von [Systemleistung](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datenzuwachs) und [Datenzuwachs](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datenzuwachs).
 
 - Im Datensicherungskonzept ist ersichtlich, in welcher Form (Speicherort, Datenmenge) das Backup ausgeführt wird, inklusive den zugehörigen Meta-Informationen (Versionierung, Zeitpunkt).
 
@@ -40,7 +40,7 @@ Der Restore-Prozess ist in der [Betriebsdokumentation](https://github.com/Arlind
 
 - Die gewählte technologische Umsetzung ist auf einen Use-Case angewendet. Wie die Datensicherung erfolgen kann, ist in der Arbeit konkret festgehalten.
 
-Die Technologie wurde vom [Szenario 1: Regelmässige Datensicherungen](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-1-regelm%C3%A4ssige-datensicherungen-1) abgeleitet.
+Die Technologie wurde vom [Szenario 1: Regelmässige Datensicherungen](https://github.com/Arlind-tbz/modul-143?tab=readme-ov-file#szenario-1-regelm%C3%A4ssige-datensicherungen) abgeleitet.
 
 ## MACHBARKEIT
 
@@ -126,7 +126,7 @@ Benutzer haben immer eine Begrenzung für die Anzahl der Dateien, die sie speich
 
 - Die Anleitung informiert sowohl den Benutzer als auch den Systemadministrator über alle relevanten Parameter für die Datensicherung.
 
-In meiner [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) und im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sollten alle [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story)) abgedeckt sein, und alle Schritte sind nachvollziehbar.
+In meiner [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) und im [Datensicherungskonzept](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#datensicherungskonzept) sollten alle [Use-Cases](https://github.com/Arlind-tbz/modul-143/tree/main#fiktive-user-story) abgedeckt sein, und alle Schritte sind nachvollziehbar.
 
 - Es werden klare Informationen bereitgestellt, unter welchen Bedingungen die Datensicherung gewährleistet ist.
 
