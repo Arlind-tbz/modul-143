@@ -36,7 +36,7 @@ Die Backups werden vom [Szenario 1: Regelmässige Datensicherungen](https://gith
 
 - Der Restore-Prozess ist beschrieben und funktional dokumentiert.
 
-Der Restore-Prozess ist in der [Betriebsdokumentation]((https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) im Abschnitt [Restore](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#restore) dokumentiert.
+Der Restore-Prozess ist in der [Betriebsdokumentation](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md) im Abschnitt [Restore](https://github.com/Arlind-tbz/modul-143/blob/main/Betriebsdokumentation.md#restore) dokumentiert.
 
 - Die gewählte technologische Umsetzung ist auf einen Use-Case angewendet. Wie die Datensicherung erfolgen kann, ist in der Arbeit konkret festgehalten.
 
