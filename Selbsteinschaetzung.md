@@ -6,7 +6,7 @@
 
 **Ich kann vorhandene Datensicherungssysteme analysieren und unter Berücksichtigung von Rahmenbedingungen, Vorschriften und erhobene Daten (Einflussfaktoren) ein Datensicherungskonzept entwickeln und fachgerecht darstellen.**
 
-**2.5/4**
+**2.75/4**
 
 - User-Story ist vorhanden, welche konkret einen Service beschreibt (zum Beispiel die Speicherung von Benutzerdaten).
 
