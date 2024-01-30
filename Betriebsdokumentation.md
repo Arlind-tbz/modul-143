@@ -20,7 +20,7 @@ Diese Betriebsdokumentation bietet einen umfassenden Überblick über unsere Bac
     - [Benutzer verwalten](#benutzer-verwalten-1)
       - [Benutzergruppen](#benutzergruppen-1)
       - [Benutzer erstellen](#benutzer-erstellen-1)
-    - [Benutzer bearbeiten (Passwort-Wiederherstellung)](#benutzer-bearbeiten-passwort-wiederherstellung-1)
+      - [Benutzer bearbeiten (Passwort-Wiederherstellung)](#benutzer-bearbeiten-passwort-wiederherstellung-1)
 
 ## Datensicherungskonzept
 
@@ -293,7 +293,7 @@ Nachdem Sie sich in der Benutzerliste befinden, können Sie weitere Benutzer hin
 
 Hier können Sie Ihre Benutzer erstellen.
 
-### Benutzer bearbeiten (Passwort-Wiederherstellung)
+#### Benutzer bearbeiten (Passwort-Wiederherstellung)
 
 ![Mailu-edit-user](./src/Mailu-edit-user.png)
 
